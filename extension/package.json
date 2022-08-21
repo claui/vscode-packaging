@@ -35,6 +35,9 @@
           "--external-sources",
           "--shell",
           "bash"
+        ],
+        "shellcheck.exclude": [
+          "2164"
         ]
       }
     },
