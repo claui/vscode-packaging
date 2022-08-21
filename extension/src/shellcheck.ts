@@ -28,15 +28,15 @@ export class SubscriptionHelper {
 
     if (subscription) {
       if (this.#retryPending) {
-        log.info("Shellcheck extension has appeared. Connected.");
+        log.info("ShellCheck extension has appeared. Connected.");
       } else {
-        log.info("Connected to Shellcheck extension.");
+        log.info("Connected to ShellCheck extension.");
       }
     } else {
       if (this.#retryPending) {
-        log.info("Extensions have changed but still no sign of Shellcheck.");
+        log.info("Extensions have changed but still no sign of ShellCheck.");
       } else {
-        log.info("Shellcheck extension not active.");
+        log.info("ShellCheck extension not active.");
       }
     }
 
@@ -45,36 +45,36 @@ export class SubscriptionHelper {
   }
 
   refresh(subscription: Disposable): Disposable | null {
-    if (this.#shellcheckApi()) {
-      log.info("Extensions have changed but Shellcheck is still around.");
+    if (this.#api()) {
+      log.info("Extensions have changed but ShellCheck is still around.");
       return subscription;
     }
-    log.info("Shellcheck extension has gone away. Cleaning up.");
+    log.info("ShellCheck extension has gone away. Cleaning up.");
     subscription.dispose();
     return null;
   }
 
-  #shellcheckApi(): ShellCheckExtensionApiVersion1 | null {
-    const shellcheckExtension: Extension<any> =
+  #api(): ShellCheckExtensionApiVersion1 | null {
+    const shellCheckExtension: Extension<any> =
       extensions.getExtension(SHELLCHECK_EXTENSION);
 
-    if (shellcheckExtension && !shellcheckExtension.exports?.apiVersion1) {
+    if (shellCheckExtension && !shellCheckExtension.exports?.apiVersion1) {
       log.error(
-        "The Shellcheck extension is active but did not provide an API surface." +
-          " Is the Shellcheck extension outdated?"
+        "The ShellCheck extension is active but did not provide an API surface." +
+          " Is the ShellCheck extension outdated?"
       );
     }
-    return shellcheckExtension?.exports?.apiVersion1;
+    return shellCheckExtension?.exports?.apiVersion1;
   }
 
   #subscribe(): Disposable | null {
-    if (!this.#shellcheckApi()) {
+    if (!this.#api()) {
       return null;
     }
 
-    const shellcheckSubscription: Disposable =
-      this.#shellcheckApi().registerDocumentFilter(LANGUAGE_FILTER);
-    this.#context.subscriptions.push(shellcheckSubscription);
-    return shellcheckSubscription;
+    const subscription: Disposable =
+      this.#api().registerDocumentFilter(LANGUAGE_FILTER);
+    this.#context.subscriptions.push(subscription);
+    return subscription;
   }
 }

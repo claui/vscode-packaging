@@ -1,10 +1,10 @@
 #
-# This script is meant to be sourced by Shellcheck. Its purpose is
+# This script is meant to be sourced by ShellCheck. Its purpose is
 # to provide context for PKGBUILD files, preventing unnecessary
 # warnings.
 #
 
-# Shellcheck does not recognize `shopt -o -s errexit` so we use `set -e`.
+# ShellCheck does not recognize `shopt -o -s errexit` so we use `set -e`.
 #
 # See also:
 # https://gitlab.archlinux.org/pacman/pacman/-/blob/e017a5975cfe3e53670848bd45c982524d6745af/scripts/makepkg.sh.in#L396
