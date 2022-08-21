@@ -1,0 +1,71 @@
+{
+  "name": "aur-packaging",
+  "version": "0.2.0",
+  "publisher": "claui",
+  "engines": {
+    "vscode": "^1.69.0"
+  },
+  "license": "SEE LICENSE IN README.md",
+  "displayName": "AUR packaging",
+  "description": "Support for user-contributed PKGBUILDs in the Arch User Repository (AUR)",
+  "categories": [],
+  "keywords": [],
+  "preview": true,
+  "main": "out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "aur-packaging.action.showLog",
+        "title": "AUR packaging: Show extension log"
+      }
+    ],
+    "configuration": {
+      "title": "AUR packaging",
+      "properties": {
+        "aur-packaging.executablePath": {
+          "type": "string",
+          "markdownDescription": "Path to the `foo` executable, e. g. `/usr/local/bin/foo`.  \nLeave blank if it’s already on your `PATH`.",
+          "scope": "machine-overridable"
+        }
+      }
+    },
+    "configurationDefaults": {
+      "[aur-pkgbuild]": {
+        "shellcheck.customArgs": [
+          "--external-sources",
+          "--shell",
+          "bash"
+        ]
+      }
+    },
+    "grammars": [
+      {
+        "language": "aur-pkgbuild",
+        "scopeName": "source.shell.pkgbuild.aur",
+        "path": "syntaxes/aur-pkgbuild.tmLanguage.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "aur-pkgbuild",
+        "aliases": [
+          "PKGBUILD (AUR)"
+        ],
+        "filenames": [
+          "PKGBUILD"
+        ],
+        "configuration": "share/language-configuration.json"
+      }
+    ]
+  },
+  "activationEvents": [
+    "onLanguage:aur-pkgbuild"
+  ],
+  "extensionDependencies": [
+    "timonwong.shellcheck"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "repository": "github:claui/vscode-aur-packaging"
+}
