@@ -1,7 +1,8 @@
 # AUR packaging
 
-This extension adds support for user-contributed PKGBUILDs in the
-Arch User Repository (AUR).
+This extension adds support for user-contributed
+[PKGBUILD](https://wiki.archlinux.org/title/PKGBUILD) files in the
+[Arch User Repository](https://aur.archlinux.org/) (AUR).
 
 ## What it does
 
@@ -9,27 +10,75 @@ This extension configures the
 [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
 extension so it applies a specific set of rules to `PKGBUILD` files.
 
-The specific ShellCheck configuration defaults for `PKGBUILD`s are:
+For `PKGBUILD` files opened in VS Code, this extension configures
+ShellCheck in the following ways:
 
-- Apply Bash rules by default.  
-  Equivalent to `--shell bash` in `shellcheck.customArgs`.
+- It sets Bash as the shell.
 
-- Disable [SC2164](https://www.shellcheck.net/wiki/SC2164) by
-  default.  
-  This is justified because `makepkg` configures `shopt -o -s errexit`
-  (roughly equivalent to `set -e`) before it calls into `PKGBUILD`’s
-  functions.
+- It disables rule [SC2164](https://www.shellcheck.net/wiki/SC2164)
+  _(“Use `cd ... || exit` in case `cd` fails.”)_
 
-**Note:** This extension is work in progress. It requires a custom
+<!--
+Ideas for upcoming features:
+
+- It disables rule [SC2034](https://www.shellcheck.net/wiki/SC2034)
+  _(“foo appears unused. Verify it or export it.”)_
+
+- It disables rule [SC2154](https://www.shellcheck.net/wiki/SC2154)
+  _(“var is referenced but not assigned.”)_
+-->
+
+
+## Caveat
+
+This extension is work in progress. It requires a custom
 build of the ShellCheck extension at this time.  
 Specifically, it won’t work with the ShellCheck extension version
 0.20.0 or older.
 
+If you want to use this extension, you can either
+[package it
+yourself](https://github.com/claui/vscode-aur-packaging/blob/main/README.md#building-the-extension)
+or wait for
+[the first release](https://github.com/claui/vscode-aur-packaging/milestone/1)
+to be published on the VS Code Marketplace.
+
+## FAQ
+
+- Q. Why does this extension set Bash as the shell?  
+  A. `makepkg`, the program that sources `PKGBUILD`s, runs in Bash.
+
+- Q. Why does this extension disable rule SC2164 for `PKGBUILD`s?  
+  A. `makepkg` first configures `shopt -o -s errexit`, which is
+     roughly equivalent to `set -e` , before it calls into
+     `PKGBUILD`’s functions. ShellCheck doesn’t know this, and
+     still reports SC2164 violations, but those are unhelpful false
+     alarms in that context.
+
+- Q. Why does VS Code still report SC2034 violations?
+     _(“foo appears unused. Verify it or export it.”)_  
+  A. See [issue #1](https://github.com/claui/vscode-aur-packaging/issues/1).
+
 <!--
-- Suppresses unhelpful ShellCheck rules
-  [SC2034](https://www.shellcheck.net/wiki/SC2034) and
-  [SC2154](https://www.shellcheck.net/wiki/SC2154) for
-  `PKGBUILD` files.
+- Q. Why does this extension disable rule SC2034 for `PKGBUILD`s?  
+  A. There are
+     [more than a dozen PKGBUILD variables](https://wiki.archlinux.org/title/PKGBUILD).
+     ShellCheck emits `SC2034` violations for every single one of
+     them, because it can’t tell that `makepkg` will consume those
+     variables after it sources the `PKGBUILD`. So those are
+     unhelpful false alarms.  
+     Disabling rule SC2034 incurs some collateral damage, but due to
+     [limitations in ShellCheck itself](https://github.com/koalaman/shellcheck/issues/356),
+     this is probably the best we can do for now.
+-->
+
+- Q. Why does VS Code still report SC2154 violations?
+     _(“var is referenced but not assigned.”)_  
+  A. See [issue #2](https://github.com/claui/vscode-aur-packaging/issues/2).
+
+<!--
+- Q. Why does this extension disable rule SC2154 for `PKGBUILD`s?  
+  A. See explanation for SC2034.
 -->
 
 ## License
