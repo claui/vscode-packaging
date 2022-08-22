@@ -37,19 +37,16 @@ extension in the following ways:
 
 - Will not affect regular shell scripts, only `PKGBUILD`s
 
-## Caveat
+## Prerequisites
 
-This extension is work in progress. It requires a custom
-build of the ShellCheck extension at this time.  
-Specifically, it won’t work with the ShellCheck extension version
-0.21.1 or older.
+This extension depends on the
+[ShellCheck extension](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck),
+maintained by Felipe Santos.
 
-If you want to use this extension, you can either
-[package it
-yourself](https://github.com/claui/vscode-packaging/blob/main/README.md#building-the-extension)
-or wait for
-[the first release](https://github.com/claui/vscode-packaging/milestone/1)
-to be published on the VS Code Marketplace.
+Usually, VS Code will take care of this dependency for you.
+When in doubt, you can reinstall the ShellCheck extension to get the
+latest version. You should have to do that only once though, if
+ever.
 
 ## FAQ
 
