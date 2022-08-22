@@ -85,8 +85,14 @@ to be published on the VS Code Marketplace.
 
 A shout-out to these amazing people:
 
+- [Felipe Santos](https://github.com/felipecrs), maintainer of the
+  [VS Code extension for ShellCheck](https://github.com/vscode-shellcheck/vscode-shellcheck)
+
 - [Mark Skelton](https://github.com/mskelton), author of
   [yarn-plugin-outdated](https://github.com/mskelton/yarn-plugin-outdated)
+
+- [Vidar Holen](https://github.com/koalaman), who wrote
+  [ShellCheck](https://www.shellcheck.net/)
 
 ## License
 
