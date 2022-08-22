@@ -81,6 +81,13 @@ to be published on the VS Code Marketplace.
   A. See explanation for SC2034.
 -->
 
+## Acknowledgements
+
+A shout-out to these amazing people:
+
+- [Mark Skelton](https://github.com/mskelton), author of
+  [yarn-plugin-outdated](https://github.com/mskelton/yarn-plugin-outdated)
+
 ## License
 
 Copyright (c) 2022 Claudia Pellegrino
