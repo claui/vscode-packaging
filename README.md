@@ -62,6 +62,10 @@ Anytime that happens, run the `yarn clean-install` script, a wrapper around `yar
 
 Note that the `yarn clean-install` script may fail and tell you to run `yarn install` instead. I haven’t figured out why it does that. If that happens, run `yarn install` followed by `yarn clean-install`.
 
+### yarn outdated
+
+To see a list of outdated packages, run: `yarn outdated`
+
 ### yarn upgrade-yarn-itself
 
 To upgrade Yarn PnP to the latest available version, run the `yarn upgrade-yarn-itself` script.
