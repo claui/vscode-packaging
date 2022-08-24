@@ -34,7 +34,7 @@ Ideas for upcoming features:
 This extension is work in progress. It requires a custom
 build of the ShellCheck extension at this time.  
 Specifically, it won’t work with the ShellCheck extension version
-0.20.0 or older.
+0.21.1 or older.
 
 If you want to use this extension, you can either
 [package it
