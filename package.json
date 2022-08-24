@@ -14,7 +14,7 @@
     "clean-install": "yarn install && git checkout -- .vscode/settings.json '.yarn/*/LICENSE'",
     "compile": "tsc -p extension/",
     "login": "vsce login claui",
-    "package": "cd extension && vsce package --no-dependencies --yarn --githubBranch main/extension",
+    "package": "tsc -p extension/ && cd extension && vsce package --no-dependencies --yarn --githubBranch main/extension",
     "postinstall": "yarn sdks vscode",
     "publish": "cd extension && vsce publish --no-dependencies --yarn --githubBranch main/extension",
     "upgrade-all": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn upgrade-packages' && false",

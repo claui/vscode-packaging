@@ -13,28 +13,25 @@ extension so it applies a specific set of rules to `PKGBUILD` files.
 For `PKGBUILD` files opened in VS Code, this extension configures
 ShellCheck in the following ways:
 
-- It sets Bash as the shell.
+- Sets Bash as the shell.
 
-- It disables rule [SC2164](https://www.shellcheck.net/wiki/SC2164)
-  _(“Use `cd ... || exit` in case `cd` fails.”)_
-
-<!--
-Ideas for upcoming features:
-
-- It disables rule [SC2034](https://www.shellcheck.net/wiki/SC2034)
+- Disables rule [SC2034](https://www.shellcheck.net/wiki/SC2034)
   _(“foo appears unused. Verify it or export it.”)_
 
-- It disables rule [SC2154](https://www.shellcheck.net/wiki/SC2154)
+- Disables rule [SC2154](https://www.shellcheck.net/wiki/SC2154)
   _(“var is referenced but not assigned.”)_
--->
 
+- Disables rule [SC2164](https://www.shellcheck.net/wiki/SC2164)
+  _(“Use `cd ... || exit` in case `cd` fails.”)_
+
+- Will not affect regular shell scripts, only `PKGBUILD`s
 
 ## Caveat
 
 This extension is work in progress. It requires a custom
 build of the ShellCheck extension at this time.  
 Specifically, it won’t work with the ShellCheck extension version
-0.20.0 or older.
+0.21.1 or older.
 
 If you want to use this extension, you can either
 [package it
@@ -55,11 +52,6 @@ to be published on the VS Code Marketplace.
      still reports SC2164 violations, but those are unhelpful false
      alarms in that context.
 
-- Q. Why does VS Code still report SC2034 violations?
-     _(“foo appears unused. Verify it or export it.”)_  
-  A. See [issue #1](https://github.com/claui/vscode-aur-packaging/issues/1).
-
-<!--
 - Q. Why does this extension disable rule SC2034 for `PKGBUILD`s?  
   A. There are
      [more than a dozen PKGBUILD variables](https://wiki.archlinux.org/title/PKGBUILD).
@@ -70,16 +62,18 @@ to be published on the VS Code Marketplace.
      Disabling rule SC2034 incurs some collateral damage, but due to
      [limitations in ShellCheck itself](https://github.com/koalaman/shellcheck/issues/356),
      this is probably the best we can do for now.
--->
 
-- Q. Why does VS Code still report SC2154 violations?
-     _(“var is referenced but not assigned.”)_  
-  A. See [issue #2](https://github.com/claui/vscode-aur-packaging/issues/2).
-
-<!--
 - Q. Why does this extension disable rule SC2154 for `PKGBUILD`s?  
-  A. See explanation for SC2034.
--->
+  A. Similarly to SC2034, ShellCheck emits `SC2154` violations for
+     variables like `srcdir` and `pkgdir`, because it can’t tell
+     that `makepkg` always pre-initializes those variables before it
+     calls into `PKGBUILD` functions. Hence, these are false alarms,
+     too.  
+     Just like SC2034, disabling rule SC2154 will also suppress
+     some legitimate ShellCheck warnings but we can’t do anything
+     about it unless someone introduces
+     [the missing feature](https://github.com/koalaman/shellcheck/issues/356)
+     to ShellCheck proper.
 
 ## Acknowledgements
 
