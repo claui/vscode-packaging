@@ -37,6 +37,8 @@
           "bash"
         ],
         "shellcheck.exclude": [
+          "2034",
+          "2154",
           "2164"
         ]
       }
