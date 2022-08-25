@@ -1,6 +1,6 @@
-# vscode-aur-packaging
+# vscode-packaging
 
-This is the source code repository for the `aur-packaging` VS Code extension.
+This is the source code repository for the `packaging` VS Code extension.
 
 This document is for **contributors,** not for users of this extension.  
 For **user documentation,** see: [extension/README.md](./extension/README.md)  
@@ -87,16 +87,16 @@ To also upgrade Yarn itself, run `yarn upgrade-all`.
 ### The thing about vulnerabilities in transitive dependencies
 
 People sometimes discover vulnerabilities in packages on which
-vscode-aur-packaging depends.
+vscode-packaging depends.
 
 If that happens and a patch comes out, I need to upgrade the
 affected package to a newer version, which includes the patch.
 
 But a vulnerability might also affect a package on which
-vscode-aur-packaging depends only indirectly, e.g. through a
+vscode-packaging depends only indirectly, e.g. through a
 transitive requirement. A patch may exist for such a package, but
 somewhere in the chain of dependencies (from the vulnerable package
-all the way down to vscode-aur-packaging), the patch may be
+all the way down to vscode-packaging), the patch may be
 outside the specified semver range so I **can’t upgrade** the
 package via the usual `yarn up` or `yarn up -R` command.
 

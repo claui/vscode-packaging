@@ -1,12 +1,12 @@
 {
-  "name": "aur-packaging",
+  "name": "packaging",
   "version": "0.2.0",
   "publisher": "claui",
   "engines": {
     "vscode": "^1.69.0"
   },
   "license": "SEE LICENSE IN README.md",
-  "displayName": "AUR packaging",
+  "displayName": "Packaging",
   "description": "Support for user-contributed PKGBUILDs in the Arch User Repository (AUR)",
   "categories": [],
   "keywords": [],
@@ -15,14 +15,14 @@
   "contributes": {
     "commands": [
       {
-        "command": "aur-packaging.action.showLog",
-        "title": "AUR packaging: Show extension log"
+        "command": "packaging.action.showLog",
+        "title": "Packaging: Show extension log"
       }
     ],
     "configuration": {
-      "title": "AUR packaging",
+      "title": "Packaging",
       "properties": {
-        "aur-packaging.executablePath": {
+        "packaging.executablePath": {
           "type": "string",
           "markdownDescription": "Path to the `foo` executable, e. g. `/usr/local/bin/foo`.  \nLeave blank if it’s already on your `PATH`.",
           "scope": "machine-overridable"
@@ -72,5 +72,5 @@
   "extensionKind": [
     "workspace"
   ],
-  "repository": "github:claui/vscode-aur-packaging"
+  "repository": "github:claui/vscode-packaging"
 }

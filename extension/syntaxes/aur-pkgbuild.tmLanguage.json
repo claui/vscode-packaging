@@ -2,7 +2,7 @@
   "name": "aur-pkgbuild",
   "scopeName": "source.shell.pkgbuild.aur",
   "uuid": "b758f368-67dc-4719-b095-756c7051c313",
-  "comment": "AUR PKGBUILD",
+  "comment": "PKGBUILD (AUR)",
   "patterns": [
     {
       "include": "source.shell"

@@ -2950,9 +2950,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vscode-aur-packaging@workspace:.":
+"vscode-packaging@workspace:.":
   version: 0.0.0-use.local
-  resolution: "vscode-aur-packaging@workspace:."
+  resolution: "vscode-packaging@workspace:."
   dependencies:
     "@types/node": ^18.6.4
     "@types/vscode": ^1.69.1

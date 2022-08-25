@@ -9,7 +9,7 @@ export interface Logger {
 }
 
 export const outputChannel: OutputChannel =
-  window.createOutputChannel("AUR packaging");
+  window.createOutputChannel("Packaging");
 
 export const log: Logger = {
   debug: function (...args) {

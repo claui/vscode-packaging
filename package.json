@@ -1,5 +1,5 @@
 {
-  "name": "vscode-aur-packaging",
+  "name": "vscode-packaging",
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {
     "@types/node": "^18.6.4",
