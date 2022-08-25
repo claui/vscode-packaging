@@ -4,7 +4,7 @@ import { statusItem } from "./language";
 import { outputChannel } from "./logger";
 import { SubscriptionHelper } from "./shellcheck";
 
-const ACTION_SHOW_LOG: string = "aur-packaging.action.showLog";
+const ACTION_SHOW_LOG: string = "packaging.action.showLog";
 
 export function activate(context: ExtensionContext) {
   commands.registerCommand(ACTION_SHOW_LOG, () => {

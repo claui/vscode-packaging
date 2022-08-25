@@ -1,17 +1,28 @@
-# AUR packaging
+# Packaging
 
-This extension adds support for user-contributed
-[PKGBUILD](https://wiki.archlinux.org/title/PKGBUILD) files in the
+This extension helps you work with package definition files for
+package repositories.
+
+It currently supports only a single type of package repository: the
 [Arch User Repository](https://aur.archlinux.org/) (AUR).
 
-## What it does
+## Features
 
-This extension configures the
+### PKGBUILD (AUR)
+
+The Packaging extension supports user-contributed
+[PKGBUILD](https://wiki.archlinux.org/title/PKGBUILD) files in the
+AUR.
+
+For `PKGBUILD` files opened in VS Code, this extension enables
+linting through the
 [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck)
-extension so it applies a specific set of rules to `PKGBUILD` files.
+extension.
 
-For `PKGBUILD` files opened in VS Code, this extension configures
-ShellCheck in the following ways:
+By default, however, ShellCheck emits a number of unhelpful warnings
+that are false alarms in the context of `PKGBUILD` files. To remove
+those false alarms, this extension configures the ShellCheck
+extension in the following ways:
 
 - Sets Bash as the shell.
 
@@ -35,9 +46,9 @@ Specifically, it won’t work with the ShellCheck extension version
 
 If you want to use this extension, you can either
 [package it
-yourself](https://github.com/claui/vscode-aur-packaging/blob/main/README.md#building-the-extension)
+yourself](https://github.com/claui/vscode-packaging/blob/main/README.md#building-the-extension)
 or wait for
-[the first release](https://github.com/claui/vscode-aur-packaging/milestone/1)
+[the first release](https://github.com/claui/vscode-packaging/milestone/1)
 to be published on the VS Code Marketplace.
 
 ## FAQ
