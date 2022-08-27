@@ -6,6 +6,13 @@ package repositories.
 It currently supports only a single type of package repository: the
 [Arch User Repository](https://aur.archlinux.org/) (AUR).
 
+## Screenshots
+
+| `PKGBUILD` file without this extension | `PKGBUILD` file with this extension |
+|:--------------------------------------:|:-----------------------------------:|
+| <img alt="Screenshot of a PKGBUILD file opened in VS Code without the Packaging extension installed. The screenshot shows dozens of ShellCheck diagnostics, most of which are useless for PKGBUILDs. The two relevant findings are difficult to spot because they have become lost in the noise." src="https://raw.githubusercontent.com/claui/vscode-packaging/main/extension/images/screenshot-pkgbuild-without-extension.png" width="75%"> | <img alt="Screenshot of a PKGBUILD file opened in VS Code with the Packaging extension installed. The screenshot now only shows the two ShellCheck findings which are actual mistakes in the PKGBUILD." src="https://raw.githubusercontent.com/claui/vscode-packaging/main/extension/images/screenshot-pkgbuild-with-extension.png" width="75%"> |
+| [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck) findings are mostly irrelevant. | Only see ShellCheck diagnostics that matter. |
+
 ## Features
 
 ### PKGBUILD (AUR)
