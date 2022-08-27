@@ -66,11 +66,11 @@ Note that the `yarn clean-install` script may fail and tell you to run `yarn ins
 
 To see a list of outdated packages, run: `yarn outdated`
 
-### yarn upgrade-yarn-itself
+### yarn upgrade-lockfile
 
-To upgrade Yarn PnP to the latest available version, run the `yarn upgrade-yarn-itself` script.
-
-Note that the script will only print manual instructions. That’s because Yarn makes changes to `package.json`, and that doesn’t play well with Yarn PnP in scripts.
+This runs `yarn up -R '**' && yarn clean-install` behind the scenes
+in order to upgrade all resolutions in the lockfile as far as
+possible, but leaves your `package.json` as is.
 
 ### yarn upgrade-packages
 
@@ -82,6 +82,12 @@ excludes Yarn itself (see the `yarn upgrade-yarn-itself` section).
 
 Also excluded is the `@types/vscode` package. For details, see
 section _Upgrading the VS Code API_.
+
+### yarn upgrade-yarn-itself
+
+To upgrade Yarn PnP to the latest available version, run the `yarn upgrade-yarn-itself` script.
+
+Note that the script will only print manual instructions. That’s because Yarn makes changes to `package.json`, and that doesn’t play well with Yarn PnP in scripts.
 
 ### yarn upgrade-all
 
