@@ -84,7 +84,7 @@ pull request against `main`:
   git commit --edit -m "Release ${tag}"
   git tag "${tag}"
   git push --tags
-  gh release --generate-notes --prerelease "${tag}"
+  gh release create --generate-notes --prerelease "${tag}"
   gh pr create --fill --web
 )
 ```
