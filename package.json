@@ -18,7 +18,7 @@
     "postinstall": "yarn sdks vscode",
     "publish": "cd extension && vsce publish --no-dependencies --yarn --githubBranch main/extension",
     "upgrade-all": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn upgrade-packages' && false",
-    "upgrade-packages": "yarn up '*' '@types/*' '@yarnpkg/*' && yarn clean-install",
+    "upgrade-packages": "yarn up '*' '@types/node' '@yarnpkg/*' && yarn clean-install",
     "upgrade-yarn-itself": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn clean-install' && false",
     "vscode:prepublish": "yarn compile"
   }
