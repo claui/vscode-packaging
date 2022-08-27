@@ -66,21 +66,51 @@ Note that the `yarn clean-install` script may fail and tell you to run `yarn ins
 
 To see a list of outdated packages, run: `yarn outdated`
 
+### yarn upgrade-lockfile
+
+This runs `yarn up -R '**' && yarn clean-install` behind the scenes
+in order to upgrade all resolutions in the lockfile as far as
+possible, but leaves your `package.json` as is.
+
+### yarn upgrade-packages
+
+The built-in `yarn up` command can be a bit cumbersome to use if you want to upgrade all dependencies in one go.
+
+Running the `yarn upgrade-packages` script will upgrade all relevant
+dependencies. That includes the `@types` and `@yarnpkg` scopes but
+excludes Yarn itself (see the `yarn upgrade-yarn-itself` section).
+
+Also excluded is the `@types/vscode` package. For details, see
+section _Upgrading the VS Code API_.
+
 ### yarn upgrade-yarn-itself
 
 To upgrade Yarn PnP to the latest available version, run the `yarn upgrade-yarn-itself` script.
 
 Note that the script will only print manual instructions. That’s because Yarn makes changes to `package.json`, and that doesn’t play well with Yarn PnP in scripts.
 
-### yarn upgrade-packages
-
-The built-in `yarn up` command can be a bit cumbersome to use if you want to upgrade all dependencies in one go.
-
-Running the `yarn upgrade-packages` script will upgrade all relevant dependencies. That includes the `@types` and `@yarnpkg` scopes but excludes Yarn itself (see the `yarn upgrade-yarn-itself` section).
-
 ### yarn upgrade-all
 
 To also upgrade Yarn itself, run `yarn upgrade-all`.
+
+### Upgrading the VS Code API
+
+Upgrading the version of the `@types/vscode` package should always
+be a manual step and a conscious decision. It effectively bumps the
+minimum supported VS Code version that this extension supports.
+
+To bump the minimum supported VS Code version, follow these steps:
+
+1. In `package.json`, manually update the minimum version to a new
+   version triple (e.g. `~=1.99.0`).  
+   Make sure to preserve the `~=` prefix as you change the value.
+
+2. In `extension/package.json` under the `engines` section, manually
+   update the value of the `vscode` property to the new version
+   triple.  
+   Preserve the `^` prefix as you change the value.
+
+3. Run `yarn clean-install`.
 
 ## Handling vulnerable dependencies
 
