@@ -219,7 +219,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/vscode@npm:^1.69.1":
+"@types/vscode@npm:~=1.69.0":
   version: 1.69.1
   resolution: "@types/vscode@npm:1.69.1"
   checksum: 5e34bf677106f8e92722537a87d25f9e96b1bed5ecc381f1af1c89382be0fa7690e38e2d707be57d0aca5b37c98feec54dae19b29784a2050fdc92588fbb745e
@@ -2962,7 +2962,7 @@ __metadata:
   resolution: "vscode-packaging@workspace:."
   dependencies:
     "@types/node": ^18.7.13
-    "@types/vscode": ^1.69.1
+    "@types/vscode": ~=1.69.0
     "@yarnpkg/sdks": ^3.0.0-rc.14
     eslint: ^8.23.0
     typescript: ^4.7.4
