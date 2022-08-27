@@ -35,18 +35,59 @@ Unlike `vsce package`, running `yarn package` will work around issue [microsoft/
 Use `yarn package` as long as the issue is unresolved.
 
 ## Publishing the extension
-To publish to the VS Code Extension Marketplace, first choose a target version.  
-[The VS Code folks recommend](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#prerelease-extensions) the following numbering scheme:
+
+Publishing the extension has several steps:
+
+1. Merge the contributions.
+2. Choose a target version number.
+3. Publish to the Marketplace. (This modifies `extension/package.json`.)
+4. Create a Git commit, Git tag, GitHub prerelease and GitHub PR.
+
+### Merging the contributions
+
+Make sure that all the contributions you’re going to have in the
+release have been merged to the `main` branch.
+
+### Choosing a target version number
+
+With all contributions merged into `main`, choose a target version
+number.  
+[The VS Code folks recommend](https://code.visualstudio.com/api/working-with-extensions/publishing-extension#prerelease-extensions)
+the following numbering scheme:
 
 - `major.ODD_NUMBER.patch` (e.g. 1.1.0) for **pre-release** versions; and
 - `major.EVEN_NUMBER.patch` (e.g. 1.2.0) for **release** versions.
 
+### Publishing to the Marketplace
+
 After deciding on a target version, run:
 
+- `git checkout main`
 - `yarn login`
 - `yarn publish [--pre-release] [version]`
 
 The `yarn publish` command first updates the version number in [extension/package.json](./extension/package.json) to the given version. Then it packages and publishes the extension to the VS Code Extension Marketplace.
+
+### Committing, tagging and creating a GitHub prerelease and PR
+
+With the extension now published on the Marketplace, commit the
+change, create a tag, push, cut a GitHub (pre-)release, and create a
+pull request against `main`:
+
+```
+(
+  set -eux
+  git checkout -b publish
+  tag="$(jq -r '"v" + .version' extension/package.json)"
+  echo "New tag: ${tag}"
+  git add -u
+  git commit --edit -m "Release ${tag}"
+  git tag "${tag}"
+  git push --tags
+  gh release --generate-notes --prerelease "${tag}"
+  gh pr create --fill --web
+)
+```
 
 ## Maintenance
 
