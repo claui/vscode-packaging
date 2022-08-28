@@ -3,7 +3,7 @@
   "license": "SEE LICENSE IN README.md",
   "devDependencies": {
     "@types/node": "^18.7.13",
-    "@types/vscode": "~=1.69.0",
+    "@types/vscode": "=1.69",
     "@yarnpkg/sdks": "^2.6.3",
     "eslint": "^8.23.0",
     "typescript": "^4.8.2",
@@ -19,8 +19,8 @@
     "publish": "cd extension && vsce publish --no-dependencies --yarn --githubBranch main/extension",
     "upgrade-all": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && yarn upgrade-packages' && false",
     "upgrade-lockfile": "yarn up -R '**' && yarn clean-install",
-    "upgrade-packages": "yarn up '*' '@types/node' '@yarnpkg/*' && yarn up -R '**' && yarn clean-install",
-    "upgrade-yarn-itself": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && clean-install' && false",
+    "upgrade-packages": "yarn up '**' '@types/vscode@=1.69' && yarn up -R '**' && yarn clean-install",
+    "upgrade-yarn-itself": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && yarn clean-install' && false",
     "vscode:prepublish": "yarn compile"
   }
 }
