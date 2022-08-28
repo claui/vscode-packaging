@@ -171,8 +171,8 @@ To bump the minimum supported VS Code version, follow these steps:
    Preserve the `@types/vscode@=` prefix as you change the value.
 
 3. In `extension/package.json` under the `engines` section, manually
-   update the value of the `vscode` property to the new version
-   tuple.  
+   update the value of the `vscode` property to the chosen version.
+   Since `vsce` expects a triple for that property, append a `.0`.  
    Preserve the `^` prefix as you change the value.
 
 4. Run `yarn clean-install`.
