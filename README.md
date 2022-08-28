@@ -143,8 +143,8 @@ minimum supported VS Code version that this extension supports.
 To bump the minimum supported VS Code version, follow these steps:
 
 1. In `package.json`, manually update the minimum version to a new
-   version triple (e.g. `~=1.99.0`).  
-   Make sure to preserve the `~=` prefix as you change the value.
+   version triple (e.g. `^1.99.0`).  
+   Make sure to preserve the `^` prefix as you change the value.
 
 2. In `extension/package.json` under the `engines` section, manually
    update the value of the `vscode` property to the new version
