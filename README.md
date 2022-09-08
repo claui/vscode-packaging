@@ -98,11 +98,12 @@ Follow these steps to publish the extension to the Open VSX Registry:
    Extension Marketplace. This ensures that the version number has
    been updated and that a `.vsix` file has been generated.
 
-3. Run the `yarn ovsx publish` command with the correct
-   `extension/[…].vsix` file as the sole argument. Example in Bash:
+3. Run `yarn package` followed by the `yarn ovsx publish` command.
+   The `yarn ovsx publish` invocation requires a `extension/[…].vsix`
+   file as an argument. Example in Bash:
 
    ```bash
-   yarn ovsx publish "extension/packaging-$(jq -r .version extension/package.json).vsix"
+   yarn package && yarn ovsx publish "extension/packaging-$(jq -r .version extension/package.json).vsix"
    ```
 
 ### Committing, tagging and creating a GitHub prerelease and PR
