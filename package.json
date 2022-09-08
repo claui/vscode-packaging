@@ -6,6 +6,8 @@
     "@types/vscode": "=1.69",
     "@yarnpkg/sdks": "^2.6.3",
     "eslint": "^8.23.0",
+    "ovsx": "^0.5.1",
+    "semver": "^7.3.7",
     "typescript": "^4.8.2",
     "vsce": "^2.10.2"
   },
@@ -16,7 +18,7 @@
     "login": "vsce login claui",
     "package": "tsc -p extension/ && cd extension && vsce package --no-dependencies --yarn --githubBranch main/extension",
     "postinstall": "yarn sdks vscode",
-    "publish": "cd extension && vsce publish --no-dependencies --yarn --githubBranch main/extension",
+    "publish-vsce": "cd extension && vsce publish --no-dependencies --yarn --githubBranch main/extension",
     "upgrade-all": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && yarn upgrade-packages' && false",
     "upgrade-lockfile": "yarn up -R '**' && yarn clean-install",
     "upgrade-packages": "yarn up '**' '@types/vscode@=1.69' && yarn up -R '**' && yarn clean-install",
