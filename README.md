@@ -47,7 +47,8 @@ Publishing the extension has several steps:
 1. Merge the contributions.
 2. Choose a target version number.
 3. Publish to the Marketplace. (This modifies `extension/package.json`.)
-4. Create a Git commit, Git tag, GitHub prerelease and GitHub PR.
+4. Publish to the Open VSX Registry.
+5. Create a Git commit, Git tag, GitHub prerelease and GitHub PR.
 
 ### Merging the contributions
 
@@ -70,12 +71,39 @@ After deciding on a target version, run:
 
 - `git checkout main`
 - `yarn login`
-- `yarn publish [--pre-release] [version]`
+- `yarn publish-vsce [--pre-release] [version]`
 
-The `yarn publish` command first updates the version number in
+The `yarn publish-vsce` command first updates the version number in
 [extension/package.json](./extension/package.json) to the given
 version. Then it packages and publishes the extension to the VS Code
 Extension Marketplace.
+
+### Publishing to the Open VSX Registry
+
+Follow these steps to publish the extension to the Open VSX Registry:
+
+1. Set the `OVSX_PAT` environment variable to your personal access
+   token.
+
+   For example, if you’re on Bash and you have your token in
+   1Password, you could run the following command line:
+
+   ```bash
+   read -r OVSX_PAT < <(
+     op item get 'Open VSX Registry' --fields password
+   ) && export OVSX_PAT
+   ```
+
+2. Make sure you have published the extension to the VS Code
+   Extension Marketplace. This ensures that the version number has
+   been updated and that a `.vsix` file has been generated.
+
+3. Run the `yarn ovsx publish` command with the correct
+   `extension/[…].vsix` file as the sole argument. Example in Bash:
+
+   ```bash
+   yarn ovsx publish "extension/packaging-$(jq -r .version extension/package.json).vsix"
+   ```
 
 ### Committing, tagging and creating a GitHub prerelease and PR
 
