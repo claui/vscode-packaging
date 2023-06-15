@@ -4,6 +4,9 @@
 # warnings.
 #
 
+# Allow ShellCheck to interpret this file correctly during development:
+# shellcheck shell=bash
+
 # ShellCheck does not recognize `shopt -o -s errexit` so we use `set -e`.
 #
 # See also:
