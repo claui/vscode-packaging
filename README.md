@@ -102,7 +102,7 @@ Follow these steps to publish the extension to the Open VSX Registry:
    `extension/[…].vsix` file as the sole argument. Example in Bash:
 
    ```bash
-   yarn ovsx publish "extension/packaging-$(jq -r .version extension/package.json).vsix"
+   yarn ovsx publish "extension/dist/packaging-$(jq -r .version extension/package.json).vsix"
    ```
 
 ### Committing, tagging and creating a GitHub prerelease and PR
