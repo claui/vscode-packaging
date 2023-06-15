@@ -7,7 +7,7 @@ import {
 } from "vscode";
 
 import { LANGUAGE_FILTER } from "./language";
-import { log } from "./logger";
+import log from "./log";
 
 const SHELLCHECK_EXTENSION: string = "timonwong.shellcheck";
 
@@ -24,7 +24,7 @@ export class SubscriptionHelper {
   }
 
   trySubscribe(): Disposable | null {
-    const subscription: Disposable = this.#subscribe();
+    const subscription: Disposable | null = this.#subscribe();
 
     if (subscription) {
       if (this.#firstTry) {
@@ -55,25 +55,26 @@ export class SubscriptionHelper {
   }
 
   #api(): ShellCheckExtensionApiVersion1 | null {
-    const shellCheckExtension: Extension<any> =
+    const shellCheckExtension: Extension<any> | undefined =
       extensions.getExtension(SHELLCHECK_EXTENSION);
 
     if (shellCheckExtension && !shellCheckExtension.exports?.apiVersion1) {
       log.error(
         "The ShellCheck extension is active but did not provide an API surface." +
-          " Is the ShellCheck extension outdated?"
+          " Is the ShellCheck extension outdated?",
       );
     }
     return shellCheckExtension?.exports?.apiVersion1;
   }
 
   #subscribe(): Disposable | null {
-    if (!this.#api()) {
+    const api: ShellCheckExtensionApiVersion1 | null = this.#api();
+    if (!api) {
       return null;
     }
 
     const subscription: Disposable =
-      this.#api().registerDocumentFilter(LANGUAGE_FILTER);
+      api.registerDocumentFilter(LANGUAGE_FILTER);
     this.#context.subscriptions.push(subscription);
     return subscription;
   }

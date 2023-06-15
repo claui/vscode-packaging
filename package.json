@@ -1,28 +1,51 @@
 {
   "name": "vscode-packaging",
   "license": "SEE LICENSE IN README.md",
-  "devDependencies": {
-    "@types/node": "^18.7.13",
-    "@types/vscode": "=1.69",
-    "@yarnpkg/sdks": "^2.6.3",
-    "eslint": "^8.23.0",
-    "ovsx": "^0.5.1",
-    "semver": "^7.3.7",
-    "typescript": "^4.8.2",
-    "vsce": "^2.10.2"
+  "engines": {
+    "node": "^16.0.0"
   },
-  "packageManager": "yarn@3.2.3",
+  "comments": {
+    "devDependencies": {
+      "@types/node": "Keep this pinned to the Node.js major version that ships with VS Code.",
+      "@types/vscode": "For details, see section *Upgrading the VS Code API version* in `README.md`.",
+      "typescript": "Restricted for compatibility with `eslint-plugin`; when upgrading both, run `yarn lint` to re-check."
+    }
+  },
+  "devDependencies": {
+    "@types/node": "<=16.x",
+    "@types/vscode": "=1.74",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
+    "@vscode/vsce": "^2.19.0",
+    "@yarnpkg/sdks": "<=2.x || ^3.0.0",
+    "del-cli": "^5.0.0",
+    "esbuild": "^0.18.3",
+    "eslint": "^8.36.0",
+    "ovsx": "^0.8.0",
+    "semver": "^7.3.8",
+    "source-map-support": "^0.5.21",
+    "ts-node": "^10.9.1",
+    "typescript": "<=5.0.x"
+  },
+  "packageManager": "yarn@3.6.0",
   "scripts": {
+    "ci-package": "mkdir -p extension/dist && yarn run -B vsce package --no-dependencies --yarn --cwd extension --githubBranch main/extension --out extension/dist",
+    "clean": "yarn run -B del extension/build extension/dist extension/types extension/work",
     "clean-install": "yarn install && git checkout -- .vscode/settings.json '.yarn/*/LICENSE'",
-    "compile": "tsc -p extension/",
-    "login": "vsce login claui",
-    "package": "tsc -p extension/ && cd extension && vsce package --no-dependencies --yarn --githubBranch main/extension",
+    "compile": "tsc -p extension/ && yarn run esbuild --bundle --external:vscode --outdir=./extension/build/ --platform=node --target=es2022 ./extension/work/tsc-out/extension.js",
+    "lint": "yarn run -B eslint --max-warnings 0 extension/src",
+    "login": "yarn run -B vsce login claui",
+    "package": "yarn clean && yarn compile && yarn ci-package",
     "postinstall": "yarn sdks vscode",
-    "publish-vsce": "cd extension && vsce publish --no-dependencies --yarn --githubBranch main/extension",
+    "publish-vsce": "yarn run -B vsce publish --no-dependencies --yarn --cwd extension --githubBranch main/extension",
+    "repatch": "git add -- package.json && yarn patch-commit -s \"$1\" && git checkout -- package.json && yarn clean-install",
     "upgrade-all": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && yarn upgrade-packages' && false",
     "upgrade-lockfile": "yarn up -R '**' && yarn clean-install",
-    "upgrade-packages": "yarn up '**' '@types/vscode@=1.69' && yarn up -R '**' && yarn clean-install",
+    "upgrade-packages": "yarn up '**' '@types/node@<=16.x' '@types/vscode@=1.74' '@yarnpkg/sdks@<=2.x || ^3.0.0' 'typescript@<=5.0.x' && yarn up -R '**' && yarn clean-install",
     "upgrade-yarn-itself": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && yarn clean-install' && false",
-    "vscode:prepublish": "yarn compile"
+    "vscode:prepublish": "yarn clean && yarn compile"
+  },
+  "resolutions": {
+    "@vscode/vsce@^2.19.0": "patch:@vscode/vsce@npm:2.19.0#./.yarn/patches/@vscode-vsce-npm-2.19.0-c171711221.patch"
   }
 }

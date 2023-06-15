@@ -1,11 +1,14 @@
+import { promisify } from "util";
+
 const dateTimeFormat: Intl.DateTimeFormat = new Intl.DateTimeFormat([], {
   dateStyle: "long",
   timeStyle: "long",
 });
 
-export const getCurrentTimestamp = () => {
+export function getCurrentTimestamp(): string {
   return dateTimeFormat.format(new Date());
-};
+}
 
-export const sleep = (duration_ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, duration_ms));
+export async function sleep(durationMs: number): Promise<NodeJS.Timer> {
+  return await promisify(setTimeout)(durationMs);
+}

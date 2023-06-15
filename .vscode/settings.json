@@ -1,4 +1,11 @@
 {
+  "[javascript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+      80
+    ]
+  },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
@@ -6,7 +13,8 @@
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+    "editor.formatOnSave": true,
     "editor.rulers": [
       80
     ]
@@ -14,22 +22,26 @@
   "[yaml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml"
   },
+  "eslint.format.enable": true,
+  "eslint.nodePath": ".yarn/sdks",
   "files.exclude": {
     "**/.git": true
   },
-  "eslint.nodePath": ".yarn/sdks",
   "json.schemas": [
     {
       "fileMatch": [
         "*.tmLanguage.json"
       ],
-      "url": "https://raw.githubusercontent.com/Septh/tmlanguage/master/tmLanguage.schema.json"
+      "url": "https://raw.githubusercontent.com/Septh/tmlanguage/master/tmlanguage.json"
     }
   ],
+  "markdownlint.config": {
+    "MD033": false
+  },
   "search.exclude": {
-    "/.yarn": true,
-    "/.pnp.*": true,
-    "/extension/out": true,
+    "/extension/build": true,
+    "/extension/dist": true,
+    "/extension/work": true,
     "**/.yarn": true,
     "**/.pnp.*": true
   },

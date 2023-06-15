@@ -1,23 +1,23 @@
-import { ExtensionContext, commands, extensions, Disposable } from "vscode";
+import {
+  commands,
+  Disposable,
+  ExtensionContext,
+  extensions,
+} from "vscode";
 
 import { statusItem } from "./language";
-import { outputChannel } from "./logger";
+import log from "./log";
 import { SubscriptionHelper } from "./shellcheck";
 
-const ACTION_SHOW_LOG: string = "packaging.action.showLog";
-
 export function activate(context: ExtensionContext) {
-  commands.registerCommand(ACTION_SHOW_LOG, () => {
-    outputChannel.show();
-  });
-
+  commands.registerCommand("packaging.action.showLog", log.show, log);
   statusItem.command = {
-    command: ACTION_SHOW_LOG,
+    command: "packaging.action.showLog",
     title: "Show extension log",
   };
 
   const helper: SubscriptionHelper = new SubscriptionHelper(context);
-  let subscription: Disposable = helper.trySubscribe();
+  let subscription: Disposable | null = helper.trySubscribe();
   extensions.onDidChange((_) => {
     if (subscription) {
       subscription = helper.refresh(subscription);
@@ -26,7 +26,10 @@ export function activate(context: ExtensionContext) {
     }
   });
 
+  log.info("Extension startup successful");
   return {};
 }
 
-export function deactivate() {}
+export function deactivate() {
+  return;
+}
