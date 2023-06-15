@@ -26,7 +26,8 @@ export function activate(context: ExtensionContext) {
     }
   });
 
-  log.info("Extension startup successful");
+  const version = context.extension.packageJSON.version as string;
+  log.info(`Extension v${version} startup successful`);
   return {};
 }
 
