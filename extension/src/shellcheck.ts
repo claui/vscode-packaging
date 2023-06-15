@@ -17,7 +17,7 @@ export interface ShellCheckExtensionApiVersion1 {
 
 export class SubscriptionHelper {
   #context: ExtensionContext;
-  #retryPending = false;
+  #firstTry = true;
 
   constructor(context: ExtensionContext) {
     this.#context = context;
@@ -27,20 +27,20 @@ export class SubscriptionHelper {
     const subscription: Disposable = this.#subscribe();
 
     if (subscription) {
-      if (this.#retryPending) {
-        log.info("ShellCheck extension has appeared. Connected.");
-      } else {
+      if (this.#firstTry) {
         log.info("Connected to ShellCheck extension.");
+      } else {
+        log.info("ShellCheck extension has appeared. Connected.");
       }
     } else {
-      if (this.#retryPending) {
-        log.info("Extensions have changed but still no sign of ShellCheck.");
-      } else {
+      if (this.#firstTry) {
         log.info("ShellCheck extension not active.");
+      } else {
+        log.info("Extensions have changed but still no sign of ShellCheck.");
       }
     }
 
-    this.#retryPending = !subscription;
+    this.#firstTry = !!subscription;
     return subscription;
   }
 
