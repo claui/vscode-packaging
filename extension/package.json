@@ -19,16 +19,6 @@
         "title": "Packaging: Show extension log"
       }
     ],
-    "configuration": {
-      "title": "Packaging",
-      "properties": {
-        "packaging.executablePath": {
-          "type": "string",
-          "markdownDescription": "Path to the `foo` executable, e. g. `/usr/local/bin/foo`.  \nLeave blank if it’s already on your `PATH`.",
-          "scope": "machine-overridable"
-        }
-      }
-    },
     "configurationDefaults": {
       "[aur-pkgbuild]": {
         "shellcheck.customArgs": [
