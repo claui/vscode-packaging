@@ -33,6 +33,7 @@ export class SubscriptionHelper {
         log.info("ShellCheck extension has appeared. Connected.");
       }
     } else {
+      // eslint-disable-next-line no-lonely-if
       if (this.#firstTry) {
         log.info("ShellCheck extension not active.");
       } else {
@@ -44,8 +45,12 @@ export class SubscriptionHelper {
     return subscription;
   }
 
+  /* eslint-disable-next-line class-methods-use-this --
+   * Even though this method doesn’t use `this`, we leave it non-static
+   * for better API consistency
+   */
   refresh(subscription: Disposable): Disposable | null {
-    if (this.#api()) {
+    if (SubscriptionHelper.#api()) {
       log.info("Extensions have changed but ShellCheck is still around.");
       return subscription;
     }
@@ -54,21 +59,22 @@ export class SubscriptionHelper {
     return null;
   }
 
-  #api(): ShellCheckExtensionApiVersion1 | null {
+  static #api(): ShellCheckExtensionApiVersion1 | null {
     const shellCheckExtension: Extension<any> | undefined =
       extensions.getExtension(SHELLCHECK_EXTENSION);
 
     if (shellCheckExtension && !shellCheckExtension.exports?.apiVersion1) {
       log.error(
-        "The ShellCheck extension is active but did not provide an API surface." +
-          " Is the ShellCheck extension outdated?",
+        "The ShellCheck extension is active but did not provide an API surface."
+          + " Is the ShellCheck extension outdated?",
       );
     }
-    return shellCheckExtension?.exports?.apiVersion1;
+    return shellCheckExtension?.exports
+      ?.apiVersion1 as ShellCheckExtensionApiVersion1;
   }
 
   #subscribe(): Disposable | null {
-    const api: ShellCheckExtensionApiVersion1 | null = this.#api();
+    const api = SubscriptionHelper.#api();
     if (!api) {
       return null;
     }
