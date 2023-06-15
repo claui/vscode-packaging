@@ -7,7 +7,7 @@ import {
 } from "vscode";
 
 import { LANGUAGE_FILTER } from "./language";
-import { log } from "./logger";
+import log from "./log";
 
 const SHELLCHECK_EXTENSION: string = "timonwong.shellcheck";
 
@@ -17,35 +17,40 @@ export interface ShellCheckExtensionApiVersion1 {
 
 export class SubscriptionHelper {
   #context: ExtensionContext;
-  #retryPending = false;
+  #firstTry = true;
 
   constructor(context: ExtensionContext) {
     this.#context = context;
   }
 
   trySubscribe(): Disposable | null {
-    const subscription: Disposable = this.#subscribe();
+    const subscription: Disposable | null = this.#subscribe();
 
     if (subscription) {
-      if (this.#retryPending) {
-        log.info("ShellCheck extension has appeared. Connected.");
-      } else {
+      if (this.#firstTry) {
         log.info("Connected to ShellCheck extension.");
+      } else {
+        log.info("ShellCheck extension has appeared. Connected.");
       }
     } else {
-      if (this.#retryPending) {
-        log.info("Extensions have changed but still no sign of ShellCheck.");
-      } else {
+      // eslint-disable-next-line no-lonely-if
+      if (this.#firstTry) {
         log.info("ShellCheck extension not active.");
+      } else {
+        log.info("Extensions have changed but still no sign of ShellCheck.");
       }
     }
 
-    this.#retryPending = !subscription;
+    this.#firstTry = !!subscription;
     return subscription;
   }
 
+  /* eslint-disable-next-line class-methods-use-this --
+   * Even though this method doesn’t use `this`, we leave it non-static
+   * for better API consistency
+   */
   refresh(subscription: Disposable): Disposable | null {
-    if (this.#api()) {
+    if (SubscriptionHelper.#api()) {
       log.info("Extensions have changed but ShellCheck is still around.");
       return subscription;
     }
@@ -54,26 +59,28 @@ export class SubscriptionHelper {
     return null;
   }
 
-  #api(): ShellCheckExtensionApiVersion1 | null {
-    const shellCheckExtension: Extension<any> =
+  static #api(): ShellCheckExtensionApiVersion1 | null {
+    const shellCheckExtension: Extension<any> | undefined =
       extensions.getExtension(SHELLCHECK_EXTENSION);
 
     if (shellCheckExtension && !shellCheckExtension.exports?.apiVersion1) {
       log.error(
-        "The ShellCheck extension is active but did not provide an API surface." +
-          " Is the ShellCheck extension outdated?"
+        "The ShellCheck extension is active but did not provide an API surface."
+          + " Is the ShellCheck extension outdated?",
       );
     }
-    return shellCheckExtension?.exports?.apiVersion1;
+    return shellCheckExtension?.exports
+      ?.apiVersion1 as ShellCheckExtensionApiVersion1;
   }
 
   #subscribe(): Disposable | null {
-    if (!this.#api()) {
+    const api = SubscriptionHelper.#api();
+    if (!api) {
       return null;
     }
 
     const subscription: Disposable =
-      this.#api().registerDocumentFilter(LANGUAGE_FILTER);
+      api.registerDocumentFilter(LANGUAGE_FILTER);
     this.#context.subscriptions.push(subscription);
     return subscription;
   }

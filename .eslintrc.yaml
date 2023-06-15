@@ -1,0 +1,127 @@
+env:
+  node: true
+extends:
+  - eslint:recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
+ignorePatterns:
+  - build/
+  - work/
+parser: "@typescript-eslint/parser"
+parserOptions:
+  ecmaFeatures:
+    impliedStrict: true
+  ecmaVersion: 2022
+  project:
+    - extension/tsconfig.json
+plugins:
+  - "@typescript-eslint"
+root: true
+rules:
+  array-bracket-spacing: 1
+  arrow-spacing: 1
+  block-spacing: 1
+  brace-style: 1
+  camelcase: 1
+  class-methods-use-this: 1
+  comma-dangle: [1, always-multiline]
+  comma-spacing: 1
+  comma-style: 1
+  complexity: 1
+  computed-property-spacing: 1
+  consistent-return: 1
+  consistent-this: 1
+  default-case-last: 1
+  default-case: 2
+  dot-location: [1, property]
+  dot-notation: [1, { allowKeywords: false }]
+  eqeqeq: 1
+  func-call-spacing: 1
+  generator-star-spacing: [1, before]
+  guard-for-in: 1
+  indent: [1, 2]
+  key-spacing: 1
+  linebreak-style: 2
+  lines-between-class-members: [1, always, { exceptAfterSingleLine: true }]
+  logical-assignment-operators: [1, always, { enforceForIfStatements: true }]
+  max-depth: 1
+  max-len:
+    - 1
+    - code: 80
+      ignorePattern: ^\s*/[/*] eslint-disable
+      ignoreUrls: true
+  max-lines-per-function: 1
+  max-lines: 1
+  newline-per-chained-call: [1, { ignoreChainWithDepth: 2 }]
+  no-alert: 2
+  no-console: 2
+  no-implied-eval: 1
+  no-invalid-this: 2
+  no-lone-blocks: 1
+  no-lonely-if: 1
+  no-loop-func: 1
+  no-mixed-operators: 1
+  no-multi-assign: 1
+  no-multi-spaces: 1
+  no-multiple-empty-lines: [1, { max: 1 }]
+  no-negated-condition: 1
+  no-octal-escape: 2
+  no-return-assign: 1
+  no-self-compare: 1
+  no-shadow: 1
+  no-tabs: 2
+  no-template-curly-in-string: 1
+  no-throw-literal: 2
+  no-trailing-spaces: 1
+  no-undefined: 1
+  no-unexpected-multiline: 1
+  no-unused-expressions: 1
+
+  # For compatibility with typescript-eslint
+  no-unused-vars: 0
+
+  no-useless-concat: 1
+  no-var: 1
+  no-whitespace-before-property: 1
+  object-shorthand: 1
+  operator-assignment: 1
+  prefer-const: 1
+  prefer-destructuring: 1
+  prefer-exponentiation-operator: 1
+  prefer-named-capture-group: 1
+  prefer-object-has-own: 1
+  prefer-object-spread: 1
+  prefer-regex-literals: 1
+  prefer-rest-params: 1
+  prefer-spread: 1
+  prefer-template: 1
+  quote-props: [1, as-needed]
+  quotes: 1
+  radix: 1
+  require-await: 1
+  require-yield: 1
+  rest-spread-spacing: 1
+  semi-spacing: 1
+  semi-style: 1
+  sort-imports: [1, { ignoreCase: true, ignoreDeclarationSort: true }]
+  sort-vars: 1
+  space-before-blocks: 1
+  space-before-function-paren: [1, { named: never }]
+  space-in-parens: 1
+  space-infix-ops: 1
+  space-unary-ops: 1
+  spaced-comment: 1
+  unicode-bom: 2
+  yoda: 1
+
+  "@typescript-eslint/array-type": 1
+
+  # In VS Code, this allows developers to manually specify
+  # inferrable types so the distracting inline hints go away
+  "@typescript-eslint/no-inferrable-types": 0
+
+  # https://github.com/typescript-eslint/typescript-eslint/issues/4912
+  "@typescript-eslint/no-unsafe-argument": 0
+  "@typescript-eslint/no-unsafe-assignment": 0
+  "@typescript-eslint/no-unsafe-member-access": 0
+
+  "@typescript-eslint/unbound-method": 0

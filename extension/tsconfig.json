@@ -1,12 +1,21 @@
 {
   "compilerOptions": {
+    "declaration": true,
+    "declarationDir": "types",
+    "downlevelIteration": true,
+    "esModuleInterop": true,
+    "inlineSources": true,
+    "inlineSourceMap": true,
     "module": "CommonJS",
     "moduleResolution": "Node",
-    "outDir": "out",
+    "noImplicitAny": true,
+    "outDir": "work/tsc-out",
+    "resolveJsonModule": true,
+    "skipLibCheck": false,
+    "strictNullChecks": true,
     "target": "ES2022"
   },
   "include": [
-    "src",
-    "test"
+    "src"
   ]
 }

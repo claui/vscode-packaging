@@ -25,4 +25,5 @@
 
 # No need to diff or patch these
 /.yarn/releases/*.cjs           binary
+/.yarn/sdks/**                  binary
 /.yarn/plugins/**               binary

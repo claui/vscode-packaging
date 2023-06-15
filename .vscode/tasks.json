@@ -10,7 +10,7 @@
         "$tsc"
       ],
       "presentation": {
-        "reveal": "never"
+        "reveal": "silent"
       },
       "group": {
         "kind": "build",
