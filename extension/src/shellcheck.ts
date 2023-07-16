@@ -60,17 +60,21 @@ export class SubscriptionHelper {
   }
 
   static #api(): ShellCheckExtensionApiVersion1 | null {
-    const shellCheckExtension: Extension<any> | undefined =
+    const shellCheckExtension: Extension<unknown> | undefined =
       extensions.getExtension(SHELLCHECK_EXTENSION);
 
-    if (shellCheckExtension && !shellCheckExtension.exports?.apiVersion1) {
+    if (!shellCheckExtension?.exports
+      || !(shellCheckExtension.exports instanceof Object)
+      || !("apiVersion1" in shellCheckExtension.exports)) {
       log.error(
         "The ShellCheck extension is active but did not provide an API surface."
           + " Is the ShellCheck extension outdated?",
       );
+      return null;
     }
-    return shellCheckExtension?.exports
-      ?.apiVersion1 as ShellCheckExtensionApiVersion1;
+    const {apiVersion1} = shellCheckExtension.exports as
+      {apiVersion1: ShellCheckExtensionApiVersion1};
+    return apiVersion1;
   }
 
   #subscribe(): Disposable | null {
