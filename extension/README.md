@@ -8,6 +8,8 @@ It currently supports only a single type of package repository: the
 
 ## Screenshots
 
+### PKGBUILD (AUR)
+
 | `PKGBUILD` file without this extension | `PKGBUILD` file with this extension |
 |:--------------------------------------:|:-----------------------------------:|
 | <img alt="Screenshot of a PKGBUILD file opened in VS Code without the Packaging extension installed. The screenshot shows dozens of ShellCheck diagnostics, most of which are useless for PKGBUILDs. The two relevant findings are difficult to spot because they have become lost in the noise." src="https://raw.githubusercontent.com/claui/vscode-packaging/main/extension/images/screenshot-pkgbuild-without-extension.png" width="75%"> | <img alt="Screenshot of a PKGBUILD file opened in VS Code with the Packaging extension installed. The screenshot now only shows the two ShellCheck findings which are actual mistakes in the PKGBUILD." src="https://raw.githubusercontent.com/claui/vscode-packaging/main/extension/images/screenshot-pkgbuild-with-extension.png" width="75%"> |
@@ -15,7 +17,7 @@ It currently supports only a single type of package repository: the
 
 ## Features
 
-### PKGBUILD (AUR)
+### PKGBUILD (AUR) features
 
 The Packaging extension supports user-contributed
 [PKGBUILD](https://wiki.archlinux.org/title/PKGBUILD) files in the
@@ -43,6 +45,15 @@ extension in the following ways:
   _(“Use `cd ... || exit` in case `cd` fails.”)_
 
 - Will not affect regular shell scripts, only `PKGBUILD`s
+
+### customizepkg features
+
+The Packaging extension provides syntax highlighting for
+[`customizepkg-git`](https://aur.archlinux.org/packages/customizepkg-git)<sup><small>AUR</small></sup>
+patch files.
+
+For details and examples about `customizepkg`, see
+[customizepkg](https://github.com/ava1ar/customizepkg) on GitHub.
 
 ## Prerequisites
 

@@ -38,6 +38,11 @@
         "language": "aur-pkgbuild",
         "scopeName": "source.shell.pkgbuild.aur",
         "path": "share/aur-pkgbuild.tmLanguage.json"
+      },
+      {
+        "language": "customizepkg-patch",
+        "scopeName": "source.customizepkg-patch",
+        "path": "share/customizepkg-patch.tmLanguage.json"
       }
     ],
     "languages": [
@@ -46,10 +51,18 @@
         "aliases": [
           "PKGBUILD (AUR)"
         ],
-        "filenames": [
-          "PKGBUILD"
+        "configuration": "share/aur-pkgbuild.language-configuration.json"
+      },
+      {
+        "id": "customizepkg-patch",
+        "aliases": [
+          "PKGBUILD patch file"
         ],
-        "configuration": "share/language-configuration.json"
+        "filenamePatterns": [
+          "**/.customizepkg/*",
+          "**/customizepkg.d/*"
+        ],
+        "configuration": "share/customizepkg-patch.language-configuration.json"
       }
     ]
   },
