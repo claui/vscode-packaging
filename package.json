@@ -7,8 +7,7 @@
   "comments": {
     "devDependencies": {
       "@types/node": "Keep this pinned to the Node.js major version that ships with VS Code.",
-      "@types/vscode": "For details, see section *Upgrading the VS Code API version* in `README.md`.",
-      "typescript": "Restricted for compatibility with `eslint-plugin`; when upgrading both, run `yarn lint` to re-check."
+      "@types/vscode": "For details, see section *Upgrading the VS Code API version* in `README.md`."
     }
   },
   "devDependencies": {
@@ -25,7 +24,7 @@
     "semver": "^7.3.8",
     "source-map-support": "^0.5.21",
     "ts-node": "^10.9.1",
-    "typescript": "<=5.0.x"
+    "typescript": "^5.1.6"
   },
   "packageManager": "yarn@3.6.0",
   "scripts": {
@@ -41,7 +40,7 @@
     "repatch": "git add -- package.json && yarn patch-commit -s \"$1\" && git checkout -- package.json && yarn clean-install",
     "upgrade-all": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && yarn upgrade-packages' && false",
     "upgrade-lockfile": "yarn up -R '**' && yarn clean-install",
-    "upgrade-packages": "yarn up '**' '@types/node@<=16.x' '@types/vscode@=1.74' '@yarnpkg/sdks@<=2.x || ^3.0.0' 'typescript@<=5.0.x' && yarn up -R '**' && yarn clean-install",
+    "upgrade-packages": "yarn up '**' '@types/node@<=16.x' '@types/vscode@=1.74' '@yarnpkg/sdks@<=2.x || ^3.0.0' && yarn up -R '**' && yarn clean-install",
     "upgrade-yarn-itself": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && yarn clean-install' && false",
     "vscode:prepublish": "yarn clean && yarn compile"
   },
