@@ -1,0 +1,253 @@
+{
+  "name": "PKGBUILD patch file",
+  "scopeName": "source.customizepkg-patch",
+  "uuid": "30610fd9-2339-45ae-ade4-d29d42df7e67",
+  "patterns": [
+    {
+      "comment": "Line comments take precedence before everything else",
+      "include": "#comment"
+    },
+    {
+      "comment": "The `add` directive",
+      "include": "#add"
+    },
+    {
+      "comment": "The `addline` directive",
+      "include": "#addline"
+    },
+    {
+      "comment": "The `patch` directive",
+      "include": "#patch"
+    },
+    {
+      "comment": "The `remove` and `removeline` directives",
+      "include": "#remove"
+    },
+    {
+      "comment": "The `replace` directive",
+      "include": "#replace"
+    },
+    {
+      "comment": "Unknown directive",
+      "include": "#unknown"
+    }
+  ],
+  "repository": {
+    "add": {
+      "match": "^(add)(#)([^#]*)(#)(.*)",
+      "captures": {
+        "1": {
+          "name": "keyword.other.verb.$1.customizepkg"
+        },
+        "2": {
+          "name": "punctuation.separator.field"
+        },
+        "3": {
+          "name": "meta.section.$1.context.customizepkg",
+          "patterns": [
+            {
+              "include": "#pkgbuild-context-directive"
+            }
+          ]
+        },
+        "4": {
+          "name": "punctuation.separator.field"
+        },
+        "5": {
+          "name": "meta.section.$3.$1 markup.inserted.$1"
+        }
+      }
+    },
+    "addline": {
+      "match": "^(addline)(#)([^#]*)(#)(.*)",
+      "captures": {
+        "1": {
+          "name": "keyword.other.verb.$1.customizepkg"
+        },
+        "2": {
+          "name": "punctuation.separator.field"
+        },
+        "3": {
+          "name": "meta.section.$1.context.customizepkg",
+          "patterns": [
+            {
+              "include": "#pkgbuild-context-global"
+            },
+            {
+              "include": "#pkgbuild-context-directive"
+            }
+          ]
+        },
+        "4": {
+          "name": "punctuation.separator.field"
+        },
+        "5": {
+          "name": "meta.section.$3.$1 markup.inserted.$1"
+        }
+      }
+    },
+    "comment": {
+      "match": "^((#).*)$",
+      "captures": {
+        "1": {
+          "name": "comment.line.customizepkg"
+        },
+        "2": {
+          "name": "punctuation.definition.comment.customizepkg"
+        }
+      }
+    },
+    "patch": {
+      "match": "^(patch)(#)(.*)",
+      "captures": {
+        "1": {
+          "name": "keyword.other.verb.$1.customizepkg"
+        },
+        "2": {
+          "name": "punctuation.separator.field"
+        },
+        "3": {
+          "name": "meta.section.$1.context.customizepkg",
+          "patterns": [
+            {
+              "match": "([^#]*)(#)(.*)",
+              "captures": {
+                "1": {
+                  "patterns": [
+                    {
+                      "include": "#pkgbuild-context-pkgbuild"
+                    },
+                    {
+                      "match": ".*",
+                      "name": "invalid.illegal.context"
+                    }
+                  ]
+                },
+                "2": {
+                  "name": "punctuation.separator.field"
+                },
+                "3": {
+                  "name": "string.unquoted.patch.filename"
+                }
+              }
+            },
+            {
+              "match": ".*",
+              "name": "string.unquoted.patch.filename"
+            }
+          ]
+        },
+        "4": {
+          "name": "punctuation.separator.field"
+        },
+        "5": {
+          "name": "meta.section.$3.$1 markup.inserted.$1"
+        }
+      }
+    },
+    "pkgbuild-context-directive": {
+      "patterns": [
+        {
+          "match": "\\b[a-zA-Z_0-9-]+\\b",
+          "name": "variable.other.context.$1.customizepkg"
+        },
+        {
+          "match": ".*",
+          "name": "invalid.illegal.context"
+        }
+      ]
+    },
+    "pkgbuild-context-global": {
+      "match": "\\b(global)\\b",
+      "name": "keyword.other.context.$1.customizepkg"
+    },
+    "pkgbuild-context-pkgbuild": {
+      "match": "\\b(pkgbuild)\\b",
+      "name": "keyword.other.context.$1.customizepkg"
+    },
+    "remove": {
+      "match": "^(remove|removeline)(#)([^#]*)(#)(.*)",
+      "captures": {
+        "1": {
+          "name": "keyword.other.verb.$1.customizepkg"
+        },
+        "2": {
+          "name": "punctuation.separator.field"
+        },
+        "3": {
+          "name": "meta.section.$1.context.customizepkg",
+          "patterns": [
+            {
+              "include": "#pkgbuild-context-global"
+            },
+            {
+              "include": "#pkgbuild-context-directive"
+            }
+          ]
+        },
+        "4": {
+          "name": "punctuation.separator.field"
+        },
+        "5": {
+          "name": "meta.section.$3.$1 markup.deleted.$1"
+        }
+      }
+    },
+    "replace": {
+      "match": "^(replace)(#)([^#]*)(#)([^#]*)(#)(.*)",
+      "captures": {
+        "1": {
+          "name": "keyword.other.verb.$1.customizepkg"
+        },
+        "2": {
+          "name": "punctuation.separator.field"
+        },
+        "3": {
+          "name": "meta.section.$1.context.customizepkg",
+          "patterns": [
+            {
+              "include": "#pkgbuild-context-global"
+            },
+            {
+              "include": "#pkgbuild-context-directive"
+            }
+          ]
+        },
+        "4": {
+          "name": "punctuation.separator.field"
+        },
+        "5": {
+          "name": "meta.section.$3.deleted.$1 markup.deleted.$1"
+        },
+        "6": {
+          "name": "punctuation.separator.field"
+        },
+        "7": {
+          "name": "meta.section.$3.inserted.$1 markup.inserted.$1"
+        }
+      }
+    },
+    "unknown": {
+      "patterns": [
+        {
+          "match": "^([^#]+)(#)(.*)",
+          "captures": {
+            "1": {
+              "name": "invalid.illegal.unknown.directive"
+            },
+            "2": {
+              "name": "punctuation.separator.field"
+            },
+            "3": {
+              "name": "meta.section.body.unknown.entry"
+            }
+          }
+        },
+        {
+          "match": ".*",
+          "name": "invalid.illegal.unknown.entry"
+        }
+      ]
+    }
+  }
+}

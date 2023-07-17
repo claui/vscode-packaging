@@ -1,0 +1,18 @@
+# https://aur.archlinux.org/packages/dymoprint#comment-922629
+
+replace#pkgrel#1#2
+add#makedepends#unzip
+add#makedepends#zip
+addline#global#4e99d')#prepare() {
+addline#prepare#prepare#    cd "$(mktemp -d)"
+addline#prepare#mktemp#    unzip "${srcdir}/${pkgname}-${pkgver}-py2.py3-none-any.whl"
+
+# https://pillow.readthedocs.io/en/stable/releasenotes/9.2.0.html#font-size-and-offset-methods
+addline#prepare#unzip#    sed -i -e 's/max(.* \\(for line in labeltext\\)/max(r - l for l, _, r, _ in (font.getbbox(line) \\1)/' dymoprint/command_line.py
+
+# https://pillow.readthedocs.io/en/stable/releasenotes/10.0.0.html#constants
+addline#prepare#sed#    sed -i -e 's/ANTIALIAS/LANCZOS/g' dymoprint/command_line.py
+
+addline#prepare#ANTIALIAS#    zip -ur "${srcdir}/${pkgname}-${pkgver}-py2.py3-none-any.patched.whl" *
+addline#prepare# zip#}
+replace#package#*.whl#"${pkgname}-${pkgver}-py2.py3-none-any.patched.whl"
