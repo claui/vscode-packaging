@@ -1,6 +1,6 @@
 {
   "name": "packaging",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "publisher": "claui",
   "engines": {
     "vscode": "^1.74.0"
@@ -10,7 +10,6 @@
   "description": "Support for user-contributed PKGBUILDs in the Arch User Repository (AUR)",
   "categories": [],
   "keywords": [],
-  "preview": true,
   "main": "build/extension.js",
   "contributes": {
     "commands": [
