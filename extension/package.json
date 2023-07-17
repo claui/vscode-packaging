@@ -1,6 +1,6 @@
 {
   "name": "packaging",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "publisher": "claui",
   "engines": {
     "vscode": "^1.74.0"
