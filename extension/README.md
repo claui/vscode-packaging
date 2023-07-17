@@ -15,6 +15,12 @@ It currently supports only a single type of package repository: the
 | <img alt="Screenshot of a PKGBUILD file opened in VS Code without the Packaging extension installed. The screenshot shows dozens of ShellCheck diagnostics, most of which are useless for PKGBUILDs. The two relevant findings are difficult to spot because they have become lost in the noise." src="https://raw.githubusercontent.com/claui/vscode-packaging/main/extension/images/screenshot-pkgbuild-without-extension.png" width="75%"> | <img alt="Screenshot of a PKGBUILD file opened in VS Code with the Packaging extension installed. The screenshot now only shows the two ShellCheck findings which are actual mistakes in the PKGBUILD." src="https://raw.githubusercontent.com/claui/vscode-packaging/main/extension/images/screenshot-pkgbuild-with-extension.png" width="75%"> |
 | [ShellCheck](https://marketplace.visualstudio.com/items?itemName=timonwong.shellcheck) findings are mostly irrelevant. | Only see ShellCheck diagnostics that matter. |
 
+### customizepkg
+
+| [`customizepkg`](https://github.com/ava1ar/customizepkg) patch file with syntax highlighting |
+|:---------------------------------------------------:|
+| <img alt="Screenshot of a customizepkg-style patch file opened in VS Code with the Packaging extension installed, showcasing support for syntax highlighting." src="https://raw.githubusercontent.com/claui/vscode-packaging/main/extension/images/screenshot-customizepkg-patch.png" width="100%"> |
+
 ## Features
 
 ### PKGBUILD (AUR) features
@@ -46,7 +52,7 @@ extension in the following ways:
 
 - Will not affect regular shell scripts, only `PKGBUILD`s
 
-### customizepkg features
+### customizepkg syntax highlighting
 
 The Packaging extension provides syntax highlighting for
 [`customizepkg-git`](https://aur.archlinux.org/packages/customizepkg-git)<sup><small>AUR</small></sup>
