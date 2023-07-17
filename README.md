@@ -71,7 +71,7 @@ After deciding on a target version, run:
 
 - `git checkout main`
 - `yarn login`
-- `yarn publish-vsce [--pre-release] [version]`
+- `yarn publish-vsce [version]`
 
 The `yarn publish-vsce` command first updates the version number in
 [extension/package.json](./extension/package.json) to the given
@@ -121,7 +121,7 @@ pull request against `main`:
   git commit --edit -m "Release ${tag}"
   git tag "${tag}"
   git push --tags
-  gh release create --generate-notes --prerelease "${tag}"
+  gh release create --generate-notes "${tag}"
   gh pr create --fill --web
 )
 ```
