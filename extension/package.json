@@ -50,6 +50,9 @@
         "aliases": [
           "PKGBUILD (AUR)"
         ],
+        "filenames": [
+          "PKGBUILD"
+        ],
         "configuration": "share/aur-pkgbuild.language-configuration.json"
       },
       {
