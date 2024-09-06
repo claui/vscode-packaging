@@ -7,26 +7,28 @@
   "comments": {
     "devDependencies": {
       "@types/node": "Keep this pinned to the Node.js major version that ships with VS Code.",
-      "@types/vscode": "For details, see section *Upgrading the VS Code API version* in `README.md`."
+      "@types/vscode": "For details, see section *Upgrading the VS Code API version* in `README.md`.",
+      "@vscode/vsce": "Keep this pinned to 2.19.0 until an updated cwd patch is available.",
+      "eslint": "Keep this pinned to 8.x unless the configuration is migrated."
     }
   },
   "devDependencies": {
     "@types/node": "<=16.x",
     "@types/vscode": "=1.74",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "@vscode/vsce": "^2.19.0",
+    "@typescript-eslint/eslint-plugin": "^8.4.0",
+    "@typescript-eslint/parser": "^8.4.0",
+    "@vscode/vsce": "=2.19.0",
     "@yarnpkg/sdks": "<=2.x || ^3.0.0",
-    "del-cli": "^5.0.0",
-    "esbuild": "^0.18.13",
-    "eslint": "^8.45.0",
-    "ovsx": "^0.8.2",
-    "semver": "^7.5.4",
+    "del-cli": "^5.1.0",
+    "esbuild": "^0.23.1",
+    "eslint": "<=8.x",
+    "ovsx": "^0.9.2",
+    "semver": "^7.6.3",
     "source-map-support": "^0.5.21",
-    "ts-node": "^10.9.1",
-    "typescript": "^5.1.6"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
   },
-  "packageManager": "yarn@3.6.1",
+  "packageManager": "yarn@4.4.1",
   "scripts": {
     "ci-package": "mkdir -p extension/dist && yarn run -B vsce package --no-dependencies --yarn --cwd extension --githubBranch main/extension --out extension/dist",
     "clean": "yarn run -B del extension/build extension/dist extension/types extension/work",
@@ -40,7 +42,7 @@
     "repatch": "git add -- package.json && yarn patch-commit -s \"$1\" && git checkout -- package.json && yarn clean-install",
     "upgrade-all": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && yarn upgrade-packages' && false",
     "upgrade-lockfile": "yarn up -R '**' && yarn clean-install",
-    "upgrade-packages": "yarn up '**' '@types/node@<=16.x' '@types/vscode@=1.74' '@yarnpkg/sdks@<=2.x || ^3.0.0' && yarn up -R '**' && yarn clean-install",
+    "upgrade-packages": "yarn up '**' '@types/node@<=16.x' '@types/vscode@=1.74' '@vscode/vsce@=2.19.0' '@yarnpkg/sdks@<=2.x || ^3.0.0' 'eslint@<=8.x' && yarn up -R '**' && yarn clean-install",
     "upgrade-yarn-itself": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version stable && yarn install && yarn clean-install' && false",
     "vscode:prepublish": "yarn clean && yarn compile"
   },
