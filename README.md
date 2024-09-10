@@ -67,16 +67,21 @@ the following numbering scheme:
 
 ### Publishing to the Marketplace
 
-After deciding on a target version, run:
+1. Check out the `main` branch and make sure it is pristine.
 
-- `git checkout main`
-- `yarn login`
-- `yarn publish-vsce [version]`
+2. Decide on a new version number under which to publish the package.
 
-The `yarn publish-vsce` command first updates the version number in
-[extension/package.json](./extension/package.json) to the given
-version. Then it packages and publishes the extension to the VS Code
-Extension Marketplace.
+3. Edit the `extension/share/dist/package.json` manifest to reflect
+   the new version number.
+
+4. Run: `yarn package`
+
+5. If necessary, run: `yarn workspace extension login`
+
+6. Run: `yarn workspace extension publish-vsce [--pre-release]`
+
+The final `yarn […] publish-vsce` command packages and publishes the
+extension to the VS Code Extension Marketplace.
 
 ### Publishing to the Open VSX Registry
 
@@ -96,13 +101,16 @@ Follow these steps to publish the extension to the Open VSX Registry:
 
 2. Make sure you have published the extension to the VS Code
    Extension Marketplace. This ensures that the version number has
-   been updated and that a `.vsix` file has been generated.
+   been updated.
 
-3. Run the `yarn ovsx publish` command with the correct
-   `extension/[…].vsix` file as the sole argument. Example in Bash:
+3. Run `yarn package` to generate a `.vsix` package.
+
+4. Run the `yarn […] ovsx publish` command with the correct
+   `extension/dist/[…].vsix` file as the sole argument.  
+   Example in Bash:
 
    ```bash
-   yarn ovsx publish "extension/dist/packaging-$(jq -r .version extension/package.json).vsix"
+   yarn workspace extension ovsx publish "dist/packaging-$(jq -r .version extension/share/dist/package.json).vsix"
    ```
 
 ### Committing, tagging and creating a GitHub prerelease and PR
@@ -115,7 +123,7 @@ pull request against `main`:
 (
   set -eux
   git checkout -b publish
-  tag="$(jq -r '"v" + .version' extension/package.json)"
+  tag="$(jq -r '"v" + .version' extension/share/dist/package.json)"
   echo "New tag: ${tag}"
   git add -u
   git commit --edit -m "Release ${tag}"
@@ -168,7 +176,7 @@ dependencies. That includes the `@types`, `@typescript-eslint`, and
 `yarn upgrade-yarn-itself` section).
 
 Also excluded is the `@types/vscode` package. For details, see
-section _Upgrading the VS Code API_.
+section _Upgrading the VS Code API version_.
 
 ### yarn upgrade-yarn-itself
 
@@ -191,16 +199,17 @@ minimum supported VS Code version that this extension supports.
 
 To bump the minimum supported VS Code version, follow these steps:
 
-1. In `package.json`, manually update the minimum version to a new
-   version tuple (e.g. `=1.99`).  
+1. In `extension/package.json`, manually update the minimum version
+   to a new version tuple (e.g. `=1.99`).  
    Make sure to preserve the `=` prefix as you change the value.
 
-2. In `package.json`, modify the `upgrade-package` script to update
-   the same tuple (e.g `@types/vscode@=1.99`).  
+2. In the root `package.json` file, modify the `upgrade-package`
+   script to update the same tuple (e.g `@types/vscode@=1.99`).  
    Preserve the `@types/vscode@=` prefix as you change the value.
 
-3. In `extension/package.json` under the `engines` section, manually
-   update the value of the `vscode` property to the chosen version.
+3. In `extension/share/dist/package.json` under the `engines`
+   section, manually update the value of the `vscode` property to
+   the chosen version.
    Since `vsce` expects a triple for that property, append a `.0`.  
    Preserve the `^` prefix as you change the value.
 
@@ -217,18 +226,22 @@ To start editing a dependency, run `yarn patch <dependency>`.
 For example, to start editing the `vsce` executable, run:
 
 ```shell
-yarn patch @vscode/vsce@npm:2.17.0
+yarn patch @vscode/vsce@npm:2.21.1
 ```
 
 Since this project is already patching this dependency, you may want to apply the existing patch to the temporary working directory:
 
 ```shell
-patch < path/to/this/project/.yarn/patches/@vscode-vsce-npm-2.17.0-c171711221.patch
+patch < path/to/this/project/.yarn/patches/@vscode-vsce-npm-2.21.1.patch
 ```
 
-### Finish editing
+### Committing a patch for the first time
 
-To commit the patch, run `yarn repatch -- <workdir>`.
+To commit a patch for the first time, run `yarn patch-commit -s <workdir>`.
+
+### Modifying an existing patch
+
+To commit a modified patch, run `yarn repatch -- <workdir>`.
 
 For example, if the temporary working directory is `/tmp/xfs-36e26fe6/user`, run:
 
@@ -243,7 +256,7 @@ Note: `yarn repatch` is a custom script. It serves to work around two issues in 
 - It may also use an incorrect key in the resolution entry it writes to `package.json`.  
   The key should match the dependency’s semver expression, not the resolved version.
   Using the latter as a key causes the resolution to never apply.  
-  Example for a correct key: `"@vscode/vsce@^2.17.0"`
+  Example for a correct key: `"@vscode/vsce@^2.21.1"`
 
 ## Handling vulnerable dependencies
 
@@ -325,7 +338,7 @@ source code repository:
 | `.` | This directory | Apache-2.0 | [License](./LICENSE)<br>with License header below |
 | `./.yarn/releases` | The `yarn` package manager | BSD-2-Clause | [License](./.yarn/releases/LICENSE) |
 | `./.yarn/sdks` | SDK files for `yarn` | BSD-2-Clause | [License](./.yarn/sdks/LICENSE) |
-| `./extension` | The source code for this VS Code extension | Apache-2.0 | [License](./extension/LICENSE.txt)<br>with [License header](./extension/README.md#license) |
+| `./extension` | Front-end source code for this VS Code extension | Apache-2.0 | [License](./extension/LICENSE.txt)<br>with [License header](./extension/README.md#license) |
 
 In each of the directories the table mentions, you will find one
 license file, named `LICENSE` or `LICENSE.txt`.  
@@ -335,8 +348,8 @@ whose root has a license file on its own.
 
 ## License header
 
-Copyright (c) 2022 Claudia Pellegrino
+Copyright (c) 2022–2024 Claudia Pellegrino
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
-For a copy of the License, see [LICENSE.txt](LICENSE.txt).
+For a copy of the License, see [LICENSE](LICENSE).

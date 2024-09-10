@@ -1,0 +1,40 @@
+{
+  "name": "packaging",
+  "engines": {
+    "node": ">= 20.0.0"
+  },
+  "files": [
+    "/lib/",
+    "/types/"
+  ],
+  "main": "./lib/index.js",
+  "types": "./types/index.d.ts",
+  "comments": {
+    "devDependencies": {
+      "@types/node": "Keep this pinned to the Node.js major version specified in `engines`"
+    }
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.3",
+    "@types/node": "<=20.x",
+    "@types/tmp": "^0.2.3",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "del-cli": "^5.0.0",
+    "eslint": "^8.45.0",
+    "eslint-plugin-jest": "^27.2.3",
+    "jest": "^29.6.1",
+    "semver": "^7.5.4",
+    "source-map-support": "^0.5.21",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "typescript": "<=5.5.x"
+  },
+  "scripts": {
+    "clean": "yarn run -B del dist lib types",
+    "compile": "yarn run -B tsc",
+    "lint": "yarn run -B eslint --max-warnings 0 src",
+    "repatch": "git add -- package.json && yarn patch-commit -s \"$1\" && git checkout -- package.json && yarn clean-install",
+    "test": "yarn run -B tsc && yarn run -B jest"
+  }
+}

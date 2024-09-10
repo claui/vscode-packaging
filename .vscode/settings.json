@@ -25,8 +25,10 @@
   "eslint.format.enable": true,
   "eslint.nodePath": ".yarn/sdks",
   "files.exclude": {
-    "**/.git": true
+    "**/.git": true,
+    "**/packaging/lib": true
   },
+  "jest.jestCommandLine": "if ! type nvm > /dev/null && [ \"${NVM_DIR}\" ] && [ -s \"${NVM_DIR}/nvm.sh\" ]; then . \"${NVM_DIR}/nvm.sh\"; nvm use; fi; node --version && yarn test",
   "json.schemas": [
     {
       "fileMatch": [
@@ -41,7 +43,11 @@
   "search.exclude": {
     "/extension/build": true,
     "/extension/dist": true,
+    "/extension/types": true,
     "/extension/work": true,
+    "/packaging/build": true,
+    "/packaging/dist": true,
+    "/packaging/types": true,
     "**/.yarn": true,
     "**/.pnp.*": true
   },

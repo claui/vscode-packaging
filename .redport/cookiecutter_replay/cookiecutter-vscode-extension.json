@@ -1,0 +1,60 @@
+{
+  "cookiecutter": {
+    "extension_display_name": "Packaging",
+    "extension_slug": "packaging",
+    "project_slug": "vscode-packaging2",
+    "extension_description": "",
+    "extension_license": "Apache-2.0",
+    "vscode_engine_min_version_tuple": "1.92",
+    "contribute_language": "y",
+    "first_language_display_name": "PKGBUILD (AUR)",
+    "first_language_slug": "aur-pkgbuild",
+    "first_language_filename_pattern": "PKGBUILD",
+    "first_language_scope_group": "source",
+    "dedicated_library_workspace": "y",
+    "author_full_name": "Claudia Pellegrino",
+    "copyright_holder_full_name": "Claudia Pellegrino",
+    "publish_on_visual_studio_marketplace": "y",
+    "marketplace_publisher_id": "claui",
+    "github_username": "claui",
+    "install_dependencies_now": "y",
+    "_copy_without_render": [
+      ".redport/patches/*.patch"
+    ],
+    "_extensions": [
+      "local_extensions.CustomFunctionsExtension",
+      "local_extensions.CustomGlobalsExtension"
+    ],
+    "_license_filename": "",
+    "_template": "vscode",
+    "_output_dir": "REDACTED",
+    "_repo_dir": "REDACTED",
+    "_checkout": null
+  },
+  "_cookiecutter": {
+    "extension_display_name": "",
+    "extension_slug": "{{ cookiecutter.extension_display_name.lower().replace(' ', '-').replace('_', '-') }}",
+    "project_slug": "vscode-{{ cookiecutter.extension_slug }}",
+    "extension_description": "",
+    "extension_license": [
+      "Apache-2.0",
+      "Proprietary"
+    ],
+    "vscode_engine_min_version_tuple": "1.92",
+    "contribute_language": "y",
+    "first_language_display_name": "{{ cookiecutter.extension_display_name }}",
+    "first_language_slug": "{{ cookiecutter.first_language_display_name.lower().replace(' ', '-').replace('_', '-') }}",
+    "first_language_filename_pattern": "*.{{ cookiecutter.first_language_slug }}",
+    "first_language_scope_group": [
+      "source",
+      "text"
+    ],
+    "dedicated_library_workspace": "y",
+    "author_full_name": "Claudia Pellegrino",
+    "copyright_holder_full_name": "{{ cookiecutter.author_full_name }}",
+    "publish_on_visual_studio_marketplace": "y",
+    "marketplace_publisher_id": "",
+    "github_username": "claui",
+    "install_dependencies_now": "y"
+  }
+}

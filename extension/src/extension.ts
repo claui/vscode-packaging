@@ -9,6 +9,15 @@ import { statusItem } from "./language";
 import log from "./log";
 import { SubscriptionHelper } from "./shellcheck";
 
+interface ExtensionPackageJson {
+  "displayName": string,
+  "version": string,
+}
+
+function packageJson(context: ExtensionContext): ExtensionPackageJson {
+  return context.extension.packageJSON as ExtensionPackageJson;
+}
+
 export function activate(context: ExtensionContext) {
   commands.registerCommand("packaging.action.showLog", log.show, log);
   statusItem.command = {
@@ -26,7 +35,7 @@ export function activate(context: ExtensionContext) {
     }
   });
 
-  const version = context.extension.packageJSON.version as string;
+  const { version } = packageJson(context);
   log.info(`Extension v${version} startup successful`);
   return {};
 }

@@ -20,10 +20,13 @@
 
 *.json          text eol=lf
 *.md            text eol=lf
+*.mjs           text eol=lf
 *.ts            text eol=lf
+*.txt           text eol=lf
+*.yaml          text eol=lf
 *.yml           text eol=lf
 
 # No need to diff or patch these
+/.yarn/plugins/**               binary
 /.yarn/releases/*.cjs           binary
 /.yarn/sdks/**                  binary
-/.yarn/plugins/**               binary

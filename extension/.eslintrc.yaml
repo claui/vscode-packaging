@@ -13,7 +13,7 @@ parserOptions:
     impliedStrict: true
   ecmaVersion: 2022
   project:
-    - extension/tsconfig.json
+    - tsconfig.json
 plugins:
   - "@typescript-eslint"
 root: true
