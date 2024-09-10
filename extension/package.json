@@ -1,79 +1,40 @@
 {
-  "name": "packaging",
-  "version": "0.2.4",
-  "publisher": "claui",
-  "engines": {
-    "vscode": "^1.74.0"
-  },
+  "name": "extension",
   "license": "SEE LICENSE IN README.md",
-  "displayName": "Packaging",
-  "description": "Support for user-contributed PKGBUILDs in the Arch User Repository (AUR)",
-  "categories": [],
-  "keywords": [],
-  "main": "build/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "packaging.action.showLog",
-        "title": "Packaging: Show extension log"
-      }
-    ],
-    "configurationDefaults": {
-      "[aur-pkgbuild]": {
-        "shellcheck.customArgs": [
-          "--external-sources",
-          "--shell",
-          "bash"
-        ],
-        "shellcheck.exclude": [
-          "2034",
-          "2154",
-          "2164"
-        ]
-      }
-    },
-    "grammars": [
-      {
-        "language": "aur-pkgbuild",
-        "scopeName": "source.shell.pkgbuild.aur",
-        "path": "share/aur-pkgbuild.tmLanguage.json"
-      },
-      {
-        "language": "customizepkg-patch",
-        "scopeName": "source.customizepkg-patch",
-        "path": "share/customizepkg-patch.tmLanguage.json"
-      }
-    ],
-    "languages": [
-      {
-        "id": "aur-pkgbuild",
-        "aliases": [
-          "PKGBUILD (AUR)"
-        ],
-        "filenames": [
-          "PKGBUILD"
-        ],
-        "configuration": "share/aur-pkgbuild.language-configuration.json"
-      },
-      {
-        "id": "customizepkg-patch",
-        "aliases": [
-          "PKGBUILD patch file"
-        ],
-        "filenamePatterns": [
-          "**/.customizepkg/*",
-          "**/customizepkg.d/*"
-        ],
-        "configuration": "share/customizepkg-patch.language-configuration.json"
-      }
-    ]
+  "comments": {
+    "devDependencies": {
+      "@types/node": "Keep this pinned to the Node.js major version that ships with VS Code.",
+      "@types/vscode": "For details, see section *Upgrading the VS Code API version* in `README.md`."
+    }
   },
-  "extensionDependencies": [
-    "timonwong.shellcheck"
-  ],
-  "extensionKind": [
-    "workspace"
-  ],
-  "activationEvents": [],
-  "repository": "github:claui/vscode-packaging"
+  "dependencies": {
+    "packaging": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/node": "<=20.x",
+    "@types/vscode": "=1.92",
+    "@typescript-eslint/eslint-plugin": "^7.0.2",
+    "@typescript-eslint/parser": "^7.0.2",
+    "@vscode/vsce": "^2.21.1",
+    "del-cli": "^5.0.0",
+    "esbuild": "^0.20.1",
+    "esbuild-copy-static-files": "^0.1.0",
+    "eslint": "^8.45.0",
+    "ovsx": "^0.8.2",
+    "semver": "^7.5.4",
+    "source-map-support": "^0.5.21",
+    "ts-node": "^10.9.1",
+    "typescript": "<=5.5.x"
+  },
+  "scripts": {
+    "ci-package": "mkdir -p dist && yarn run -B vsce package --no-dependencies --yarn --cwd build --githubBranch main/extension --out dist",
+    "clean": "yarn run -B del build dist types work",
+    "compile": "yarn run -B tsc && contrib/build.mjs",
+    "lint": "yarn run -B eslint --max-warnings 0 src",
+    "login": "yarn run -B vsce login claui",
+    "package": "yarn clean && yarn compile && yarn ci-package",
+    "publish-vsce": "yarn run -B vsce publish --no-dependencies --yarn --cwd build --githubBranch main/extension",
+    "repatch": "git add -- package.json && yarn patch-commit -s \"$1\" && git checkout -- package.json && yarn clean-install",
+    "vscode:prepublish": "yarn clean && yarn compile"
+  }
 }

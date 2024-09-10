@@ -1,0 +1,79 @@
+{
+  "name": "packaging",
+  "version": "0.2.4",
+  "publisher": "claui",
+  "engines": {
+    "vscode": "^1.92.0"
+  },
+  "license": "SEE LICENSE IN README.md",
+  "displayName": "Packaging",
+  "description": "Support for user-contributed PKGBUILDs in the Arch User Repository (AUR)",
+  "categories": [],
+  "keywords": [],
+  "main": "extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "packaging.action.showLog",
+        "title": "Packaging: Show extension log"
+      }
+    ],
+    "configurationDefaults": {
+      "[aur-pkgbuild]": {
+        "shellcheck.customArgs": [
+          "--external-sources",
+          "--shell",
+          "bash"
+        ],
+        "shellcheck.exclude": [
+          "2034",
+          "2154",
+          "2164"
+        ]
+      }
+    },
+    "grammars": [
+      {
+        "language": "aur-pkgbuild",
+        "scopeName": "source.shell.pkgbuild.aur",
+        "path": "language/aur-pkgbuild.tmLanguage.json"
+      },
+      {
+        "language": "customizepkg-patch",
+        "scopeName": "source.customizepkg-patch",
+        "path": "language/customizepkg-patch.tmLanguage.json"
+      }
+    ],
+    "languages": [
+      {
+        "id": "aur-pkgbuild",
+        "aliases": [
+          "PKGBUILD (AUR)"
+        ],
+        "filenames": [
+          "PKGBUILD"
+        ],
+        "configuration": "language/aur-pkgbuild.language-configuration.json"
+      },
+      {
+        "id": "customizepkg-patch",
+        "aliases": [
+          "PKGBUILD patch file"
+        ],
+        "filenamePatterns": [
+          "**/.customizepkg/*",
+          "**/customizepkg.d/*"
+        ],
+        "configuration": "language/customizepkg-patch.language-configuration.json"
+      }
+    ]
+  },
+  "extensionDependencies": [
+    "timonwong.shellcheck"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "activationEvents": [],
+  "repository": "github:claui/vscode-packaging"
+}

@@ -6,7 +6,7 @@ import {
   extensions,
 } from "vscode";
 
-import { LANGUAGE_FILTER } from "./language";
+import { LANGUAGE_SELECTOR } from "./language";
 import log from "./log";
 
 const SHELLCHECK_EXTENSION: string = "timonwong.shellcheck";
@@ -84,7 +84,7 @@ export class SubscriptionHelper {
     }
 
     const subscription: Disposable =
-      api.registerDocumentFilter(LANGUAGE_FILTER);
+      api.registerDocumentFilter(LANGUAGE_SELECTOR);
     this.#context.subscriptions.push(subscription);
     return subscription;
   }

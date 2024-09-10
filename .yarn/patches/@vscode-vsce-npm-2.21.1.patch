@@ -1,5 +1,5 @@
 diff --git a/out/main.js b/out/main.js
-index 8c330a58e9026b908515dc7f8e2a50242b089de1..cd3f2d7e4c5e34a2604fec7a3bd73548eed5fbef 100644
+index 652b1fa7c6ec4ee91646cececcb7b4371ac120d5..6f5bdaef2ccb42132df0521537eb1479b7eb31bd 100644
 --- a/out/main.js
 +++ b/out/main.js
 @@ -77,6 +77,7 @@ module.exports = function (argv) {
@@ -10,7 +10,7 @@ index 8c330a58e9026b908515dc7f8e2a50242b089de1..cd3f2d7e4c5e34a2604fec7a3bd73548
          .option('--yarn', 'Use yarn instead of npm (default inferred from presence of yarn.lock or .yarnrc)')
          .option('--no-yarn', 'Use npm instead of yarn (default inferred from lack of yarn.lock or .yarnrc)')
          .option('--packagedDependencies <path>', 'Select packages that should be published only (includes dependencies)', (val, all) => (all ? all.concat(val) : [val]), undefined)
-@@ -84,13 +85,14 @@ module.exports = function (argv) {
+@@ -84,7 +85,7 @@ module.exports = function (argv) {
          // default must remain undefined for dependencies or we will fail to load defaults from package.json
          .option('--dependencies', 'Enable dependency detection via npm or yarn', undefined)
          .option('--no-dependencies', 'Disable dependency detection via npm or yarn', undefined)
@@ -18,7 +18,8 @@ index 8c330a58e9026b908515dc7f8e2a50242b089de1..cd3f2d7e4c5e34a2604fec7a3bd73548
 +        .action(({ cwd, yarn, packagedDependencies, ignoreFile, dependencies }) => main((0, package_1.ls)({ cwd, useYarn: yarn, packagedDependencies, ignoreFile, dependencies })));
      commander_1.default
          .command('package [version]')
-         .description('Packages an extension')
+         .alias('pack')
+@@ -92,6 +93,7 @@ module.exports = function (argv) {
          .option('-o, --out <path>', 'Output .vsix extension file to <path> location (defaults to <name>-<version>.vsix)')
          .option('-t, --target <target>', `Target architecture. Valid targets: ${ValidTargets}`)
          .option('-m, --message <commit message>', 'Commit message used when calling `npm version`.')
@@ -26,12 +27,12 @@ index 8c330a58e9026b908515dc7f8e2a50242b089de1..cd3f2d7e4c5e34a2604fec7a3bd73548
          .option('--no-git-tag-version', 'Do not create a version commit and tag when calling `npm version`. Valid only when [version] is provided.')
          .option('--no-update-package-json', 'Do not update `package.json`. Valid only when [version] is provided.')
          .option('--githubBranch <branch>', 'The GitHub branch used to infer relative links in README.md. Can be overridden by --baseContentUrl and --baseImagesUrl.')
-@@ -109,11 +111,12 @@ module.exports = function (argv) {
-         .option('--pre-release', 'Mark this package as a pre-release')
+@@ -111,11 +113,12 @@ module.exports = function (argv) {
          .option('--allow-star-activation', 'Allow using * in activation events')
          .option('--allow-missing-repository', 'Allow missing a repository URL in package.json')
--        .action((version, { out, target, message, gitTagVersion, updatePackageJson, githubBranch, gitlabBranch, rewriteRelativeLinks, baseContentUrl, baseImagesUrl, yarn, ignoreFile, gitHubIssueLinking, gitLabIssueLinking, dependencies, preRelease, allowStarActivation, allowMissingRepository, }) => main((0, package_1.packageCommand)({
-+        .action((version, { out, target, message, cwd, gitTagVersion, updatePackageJson, githubBranch, gitlabBranch, rewriteRelativeLinks, baseContentUrl, baseImagesUrl, yarn, ignoreFile, gitHubIssueLinking, gitLabIssueLinking, dependencies, preRelease, allowStarActivation, allowMissingRepository, }) => main((0, package_1.packageCommand)({
+         .option('--skip-license', 'Allow packaging without license file')
+-        .action((version, { out, target, message, gitTagVersion, updatePackageJson, githubBranch, gitlabBranch, rewriteRelativeLinks, baseContentUrl, baseImagesUrl, yarn, ignoreFile, gitHubIssueLinking, gitLabIssueLinking, dependencies, preRelease, allowStarActivation, allowMissingRepository, skipLicense, }) => main((0, package_1.packageCommand)({
++        .action((version, { out, target, message, cwd, gitTagVersion, updatePackageJson, githubBranch, gitlabBranch, rewriteRelativeLinks, baseContentUrl, baseImagesUrl, yarn, ignoreFile, gitHubIssueLinking, gitLabIssueLinking, dependencies, preRelease, allowStarActivation, allowMissingRepository, skipLicense, }) => main((0, package_1.packageCommand)({
          packagePath: out,
          version,
          target,
@@ -40,7 +41,7 @@ index 8c330a58e9026b908515dc7f8e2a50242b089de1..cd3f2d7e4c5e34a2604fec7a3bd73548
          gitTagVersion,
          updatePackageJson,
          githubBranch,
-@@ -136,6 +139,7 @@ module.exports = function (argv) {
+@@ -139,6 +142,7 @@ module.exports = function (argv) {
          .option('-p, --pat <token>', 'Personal Access Token (defaults to VSCE_PAT environment variable)', process.env['VSCE_PAT'])
          .option('-t, --target <targets...>', `Target architectures. Valid targets: ${ValidTargets}`)
          .option('-m, --message <commit message>', 'Commit message used when calling `npm version`.')
@@ -48,12 +49,12 @@ index 8c330a58e9026b908515dc7f8e2a50242b089de1..cd3f2d7e4c5e34a2604fec7a3bd73548
          .option('--no-git-tag-version', 'Do not create a version commit and tag when calling `npm version`. Valid only when [version] is provided.')
          .option('--no-update-package-json', 'Do not update `package.json`. Valid only when [version] is provided.')
          .option('-i, --packagePath <paths...>', 'Publish the provided VSIX packages.')
-@@ -154,11 +158,12 @@ module.exports = function (argv) {
-         .option('--allow-star-activation', 'Allow using * in activation events')
+@@ -158,11 +162,12 @@ module.exports = function (argv) {
          .option('--allow-missing-repository', 'Allow missing a repository URL in package.json')
          .option('--skip-duplicate', 'Fail silently if version already exists on the marketplace')
--        .action((version, { pat, target, message, gitTagVersion, updatePackageJson, packagePath, githubBranch, gitlabBranch, baseContentUrl, baseImagesUrl, yarn, noVerify, ignoreFile, dependencies, preRelease, allowStarActivation, allowMissingRepository, skipDuplicate, }) => main((0, publish_1.publish)({
-+        .action((version, { pat, target, message, cwd, gitTagVersion, updatePackageJson, packagePath, githubBranch, gitlabBranch, baseContentUrl, baseImagesUrl, yarn, noVerify, ignoreFile, dependencies, preRelease, allowStarActivation, allowMissingRepository, skipDuplicate, }) => main((0, publish_1.publish)({
+         .option('--skip-license', 'Allow publishing without license file')
+-        .action((version, { pat, target, message, gitTagVersion, updatePackageJson, packagePath, githubBranch, gitlabBranch, baseContentUrl, baseImagesUrl, yarn, noVerify, ignoreFile, dependencies, preRelease, allowStarActivation, allowMissingRepository, skipDuplicate, skipLicense, }) => main((0, publish_1.publish)({
++        .action((version, { pat, target, message, cwd, gitTagVersion, updatePackageJson, packagePath, githubBranch, gitlabBranch, baseContentUrl, baseImagesUrl, yarn, noVerify, ignoreFile, dependencies, preRelease, allowStarActivation, allowMissingRepository, skipDuplicate, skipLicense, }) => main((0, publish_1.publish)({
          pat,
          version,
          targets: target,

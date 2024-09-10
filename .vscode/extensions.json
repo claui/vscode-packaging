@@ -5,6 +5,7 @@
     "dbaeumer.vscode-eslint",
     "editorconfig.editorconfig",
     "henrynguyen5-vsc.vsc-nvm",
+    "orta.vscode-jest",
     "redhat.vscode-yaml"
   ]
 }

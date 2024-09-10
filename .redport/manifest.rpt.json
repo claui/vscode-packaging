@@ -1,0 +1,14 @@
+{
+  "upstream": {
+    "type": "cookiecutter-template",
+    "source": "https://github.com/claui/cookiecutter-vscode-extension.git",
+    "commit": "783ab0e6758909b9c511edf59d0fec89fcf0093e",
+    "replay": "cookiecutter_replay/cookiecutter-vscode-extension.json",
+    "patches": [
+      "patches/disable-install-step.patch"
+    ],
+    "nextPatches": [
+      "patches/disable-install-step.patch"
+    ]
+  }
+}

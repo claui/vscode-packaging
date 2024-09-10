@@ -23,8 +23,8 @@ indent_size = 2
 indent_size = 2
 trim_trailing_whitespace = false
 
-[*.ts]
+[*.{mjs,ts}]
 indent_size = 2
 
-[*.yml]
+[*.{yaml,yml}]
 indent_size = 2

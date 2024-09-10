@@ -1,0 +1,13 @@
+{
+  "clearMocks": true,
+  "collectCoverage": true,
+  "coverageDirectory": "coverage",
+  "coverageProvider": "v8",
+  "showSeed": true,
+  "transform": {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {}
+    ]
+  }
+}
