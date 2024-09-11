@@ -1,0 +1,11 @@
+{
+  "name": "pacman-install-script",
+  "scopeName": "source.shell.install-script.pacman",
+  "uuid": "04125485-6333-4e94-aad4-6b5983795a02",
+  "comment": "Pacman *.install script",
+  "patterns": [
+    {
+      "include": "source.shell"
+    }
+  ]
+}

@@ -30,6 +30,16 @@
           "2154",
           "2164"
         ]
+      },
+      "[pacman-install-script]": {
+        "shellcheck.customArgs": [
+          "--external-sources",
+          "--shell",
+          "bash"
+        ]
+      },
+      "files.associations": {
+        "**/debian/*.install": "plain"
       }
     },
     "grammars": [
@@ -37,6 +47,11 @@
         "language": "aur-pkgbuild",
         "scopeName": "source.shell.pkgbuild.aur",
         "path": "language/aur-pkgbuild.tmLanguage.json"
+      },
+      {
+        "language": "pacman-install-script",
+        "scopeName": "source.shell.install-script.pacman",
+        "path": "language/pacman-install-script.tmLanguage.json"
       },
       {
         "language": "customizepkg-patch",
@@ -54,6 +69,16 @@
           "PKGBUILD"
         ],
         "configuration": "language/aur-pkgbuild.language-configuration.json"
+      },
+      {
+        "id": "pacman-install-script",
+        "aliases": [
+          "Pacman *.install script"
+        ],
+        "filenamePatterns": [
+          "**/*.install"
+        ],
+        "configuration": "language/pacman-install-script.language-configuration.json"
       },
       {
         "id": "customizepkg-patch",
