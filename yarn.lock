@@ -1733,9 +1733,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vscode/vsce@npm:=2.21.0":
-  version: 2.21.0
-  resolution: "@vscode/vsce@npm:2.21.0"
+"@vscode/vsce@npm:2.21.1":
+  version: 2.21.1
+  resolution: "@vscode/vsce@npm:2.21.1"
   dependencies:
     azure-devops-node-api: "npm:^11.0.1"
     chalk: "npm:^2.4.2"
@@ -1763,7 +1763,7 @@ __metadata:
       optional: true
   bin:
     vsce: vsce
-  checksum: 10c0/e3867e8ce58d5ac5f7e9f2a8a41b67c706c232f44370886a2b0ac2c303c5a5ec1ccda89943ad2cb500571aa48b50f48bd6e252305af5e760f9cd4803c41ab72e
+  checksum: 10c0/3f2fd3f09e6d232fc10093f7e62f7b9dd15f783ef8f2afbc0429dc868c9eb48e78f4dce40db472e84565b8e16d9723b70bfcb0a2b5f8c20b8de7cb8b9cbde26d
   languageName: node
   linkType: hard
 
@@ -1802,6 +1802,40 @@ __metadata:
   bin:
     vsce: vsce
   checksum: 10c0/f462b51ef2185ece43fef644ea6b57df6e061a8d166d45006a218892bf742b532874ccf5648c5bd46fb28e5753dc0b97c190402b8931a80db32cec79360d29a8
+  languageName: node
+  linkType: hard
+
+"@vscode/vsce@patch:@vscode/vsce@npm:2.21.1#./.yarn/patches/@vscode-vsce-npm-2.21.1.patch::locator=vscode-packaging%40workspace%3A.":
+  version: 2.21.1
+  resolution: "@vscode/vsce@patch:@vscode/vsce@npm%3A2.21.1#./.yarn/patches/@vscode-vsce-npm-2.21.1.patch::version=2.21.1&hash=76cb5f&locator=vscode-packaging%40workspace%3A."
+  dependencies:
+    azure-devops-node-api: "npm:^11.0.1"
+    chalk: "npm:^2.4.2"
+    cheerio: "npm:^1.0.0-rc.9"
+    commander: "npm:^6.2.1"
+    glob: "npm:^7.0.6"
+    hosted-git-info: "npm:^4.0.2"
+    jsonc-parser: "npm:^3.2.0"
+    keytar: "npm:^7.7.0"
+    leven: "npm:^3.1.0"
+    markdown-it: "npm:^12.3.2"
+    mime: "npm:^1.3.4"
+    minimatch: "npm:^3.0.3"
+    parse-semver: "npm:^1.1.1"
+    read: "npm:^1.0.7"
+    semver: "npm:^7.5.2"
+    tmp: "npm:^0.2.1"
+    typed-rest-client: "npm:^1.8.4"
+    url-join: "npm:^4.0.1"
+    xml2js: "npm:^0.5.0"
+    yauzl: "npm:^2.3.1"
+    yazl: "npm:^2.2.2"
+  dependenciesMeta:
+    keytar:
+      optional: true
+  bin:
+    vsce: vsce
+  checksum: 10c0/4b950728558bff38658b01bb0d15eb8c71e32be8d10e6850e8d0e50610631e1011ee7fb499ad37f95f205e5635c1bee756b3686b18bb415201ad49a7e19a20af
   languageName: node
   linkType: hard
 
@@ -3432,7 +3466,7 @@ __metadata:
     "@types/vscode": "npm:=1.92"
     "@typescript-eslint/eslint-plugin": "npm:<=7.x"
     "@typescript-eslint/parser": "npm:<=7.x"
-    "@vscode/vsce": "npm:=2.21.0"
+    "@vscode/vsce": "npm:^2.21.1"
     del-cli: "npm:^5.1.0"
     esbuild: "npm:^0.23.1"
     esbuild-copy-static-files: "npm:^0.1.0"

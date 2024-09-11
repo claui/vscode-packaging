@@ -34,7 +34,7 @@
     "test": "true yarn workspace packaging test",
     "upgrade-all": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version 4 && yarn install && yarn upgrade-packages' && false",
     "upgrade-lockfile": "yarn up -R '**' && yarn clean-install",
-    "upgrade-packages": "yarn up '**' '@types/node@<=20.x' '@types/vscode@=1.92' '@typescript-eslint/eslint-plugin@<=7.x' '@typescript-eslint/parser@<=7.x' '@vscode/vsce@=2.21.0' '@yarnpkg/sdks@^3.1.0' 'eslint@<=8.x' 'typescript@<=5.5.x' && yarn up -R '**' && yarn clean-install",
+    "upgrade-packages": "yarn up '**' '@types/node@<=20.x' '@types/vscode@=1.92' '@typescript-eslint/eslint-plugin@<=7.x' '@typescript-eslint/parser@<=7.x' '@vscode/vsce@^2.21.1' '@yarnpkg/sdks@^3.1.0' 'eslint@<=8.x' 'typescript@<=5.5.x' && yarn up -R '**' && yarn clean-install",
     "upgrade-yarn-itself": "printf >&2 '%s\\n\\t%s\\n' 'Run the following command line manually:' 'yarn set version 4 && yarn install && yarn clean-install' && false"
   },
   "workspaces": [
