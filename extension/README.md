@@ -52,6 +52,14 @@ extension in the following ways:
 
 - Will not affect regular shell scripts, only `PKGBUILD`s
 
+### Pacman \*.install files
+
+The Packaging extension adds syntax highlighting to Pacman `*.install`
+files.  
+
+It also sets Bash as the shell, removing an unnecessary Shellcheck
+warning.
+
 ### customizepkg syntax highlighting
 
 The Packaging extension provides syntax highlighting for
@@ -75,7 +83,8 @@ ever.
 ## FAQ
 
 - Q. Why does this extension set Bash as the shell?  
-  A. `makepkg`, the program that sources `PKGBUILD`s, runs in Bash.
+  A. `makepkg`, the program that sources `PKGBUILD`s, runs in Bash.  
+     The same goes for Pacman `*.install` files.
 
 - Q. Why does this extension disable rule SC2164 for `PKGBUILD`s?  
   A. `makepkg` first configures `shopt -o -s errexit`, which is
@@ -122,7 +131,7 @@ A shout-out to these amazing people:
 
 ## License
 
-Copyright (c) 2022 Claudia Pellegrino
+Copyright (c) 2022–2024 Claudia Pellegrino
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

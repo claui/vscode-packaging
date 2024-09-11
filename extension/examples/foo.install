@@ -1,0 +1,37 @@
+# The function is run right before files are extracted.
+# One argument is passed: new package version.
+pre_install() {
+  :
+}
+
+# The function is run right after files are extracted.
+# One argument is passed: new package version.
+post_install() {
+  :
+}
+
+# The function is run right before files are extracted.
+# Two arguments are passed in the following order:
+# new package version, old package version.
+pre_upgrade() {
+  :
+}
+
+# The function is run right after files are extracted.
+# Two arguments are passed in the following order:
+# new package version, old package version.
+post_upgrade() {
+  :
+}
+
+# The function is run right before files are removed.
+# One argument is passed: old package version.
+pre_remove() {
+  :
+}
+
+# The function is run right after files are removed.
+# One argument is passed: old package version.
+post_remove() {
+  :
+}

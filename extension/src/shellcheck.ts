@@ -6,7 +6,6 @@ import {
   extensions,
 } from "vscode";
 
-import { LANGUAGE_SELECTOR } from "./language";
 import log from "./log";
 
 const SHELLCHECK_EXTENSION: string = "timonwong.shellcheck";
@@ -18,9 +17,13 @@ export interface ShellCheckExtensionApiVersion1 {
 export class SubscriptionHelper {
   #context: ExtensionContext;
   #firstTry = true;
+  #prefix: string;
+  #selector: DocumentFilter;
 
-  constructor(context: ExtensionContext) {
+  constructor(context: ExtensionContext, selector: DocumentFilter) {
     this.#context = context;
+    this.#prefix = selector.language ?? JSON.stringify(selector);
+    this.#selector = { ...selector };
   }
 
   trySubscribe(): Disposable | null {
@@ -28,16 +31,18 @@ export class SubscriptionHelper {
 
     if (subscription) {
       if (this.#firstTry) {
-        log.info("Connected to ShellCheck extension.");
+        log.info(`${this.#prefix}: Connected to ShellCheck extension.`);
       } else {
-        log.info("ShellCheck extension has appeared. Connected.");
+        log.info(`${this.#prefix}:`
+          + " ShellCheck extension has appeared. Connected.");
       }
     } else {
       // eslint-disable-next-line no-lonely-if
       if (this.#firstTry) {
-        log.info("ShellCheck extension not active.");
+        log.info(`${this.#prefix}: ShellCheck extension not active.`);
       } else {
-        log.info("Extensions have changed but still no sign of ShellCheck.");
+        log.info(`${this.#prefix}:`
+          + " Extensions have changed but still no sign of ShellCheck.");
       }
     }
 
@@ -51,10 +56,12 @@ export class SubscriptionHelper {
    */
   refresh(subscription: Disposable): Disposable | null {
     if (SubscriptionHelper.#api()) {
-      log.info("Extensions have changed but ShellCheck is still around.");
+      log.info(`${this.#prefix}:`
+        + " Extensions have changed but ShellCheck is still around.");
       return subscription;
     }
-    log.info("ShellCheck extension has gone away. Cleaning up.");
+    log.info(`${this.#prefix}:`
+      + "ShellCheck extension has gone away. Cleaning up.");
     subscription.dispose();
     return null;
   }
@@ -68,12 +75,12 @@ export class SubscriptionHelper {
       || !("apiVersion1" in shellCheckExtension.exports)) {
       log.error(
         "The ShellCheck extension is active but did not provide an API surface."
-          + " Is the ShellCheck extension outdated?",
+        + " Is the ShellCheck extension outdated?",
       );
       return null;
     }
-    const {apiVersion1} = shellCheckExtension.exports as
-      {apiVersion1: ShellCheckExtensionApiVersion1};
+    const { apiVersion1 } = shellCheckExtension.exports as
+      { apiVersion1: ShellCheckExtensionApiVersion1 };
     return apiVersion1;
   }
 
@@ -83,8 +90,7 @@ export class SubscriptionHelper {
       return null;
     }
 
-    const subscription: Disposable =
-      api.registerDocumentFilter(LANGUAGE_SELECTOR);
+    const subscription: Disposable = api.registerDocumentFilter(this.#selector);
     this.#context.subscriptions.push(subscription);
     return subscription;
   }
