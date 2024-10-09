@@ -2,7 +2,7 @@
   "cookiecutter": {
     "extension_display_name": "Packaging",
     "extension_slug": "packaging",
-    "project_slug": "vscode-packaging2",
+    "project_slug": "vscode-packaging",
     "extension_description": "",
     "extension_license": "Apache-2.0",
     "vscode_engine_min_version_tuple": "1.92",
