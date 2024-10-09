@@ -2,7 +2,7 @@
   "upstream": {
     "type": "cookiecutter-template",
     "source": "https://github.com/claui/cookiecutter-vscode-extension.git",
-    "commit": "783ab0e6758909b9c511edf59d0fec89fcf0093e",
+    "commit": "c8234db3a55fe3b2e9afca365d58ecc3ed7ae76d",
     "replay": "cookiecutter_replay/cookiecutter-vscode-extension.json",
     "patches": [
       "patches/disable-install-step.patch"
