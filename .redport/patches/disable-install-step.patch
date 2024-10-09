@@ -1,10 +1,11 @@
 diff --git a/hooks/post_gen_project.py b/hooks/post_gen_project.py
-index cd50f86..50c8cb4 100644
+index b77ddf3..48ee9b3 100644
 --- a/hooks/post_gen_project.py
 +++ b/hooks/post_gen_project.py
-@@ -1,85 +1,3 @@
+@@ -1,23 +1,5 @@
 -import logging
--import os
+ import os
+-from pathlib import Path, PurePath
  import shutil
 -import subprocess
 -import sys
@@ -24,16 +25,11 @@ index cd50f86..50c8cb4 100644
 -)
  
  shutil.rmtree('licenses')
--
--{%- if cookiecutter.contribute_language == "n" %}
--shutil.rmtree('extension/examples')
--os.remove('extension/share/language/{{ cookiecutter.first_language_slug }}.tmLanguage.json')
--os.remove('extension/share/language/language-configuration.json')
--{%- endif %}
--
--{%- if cookiecutter.dedicated_library_workspace == "n" %}
--shutil.rmtree('./{{ cookiecutter.extension_slug }}')
--{%- endif %}
+ 
+@@ -30,57 +12,3 @@ os.remove('extension/share/language/language-configuration.json')
+ {%- if cookiecutter.dedicated_library_workspace == "n" %}
+ shutil.rmtree('./{{ cookiecutter.extension_slug }}')
+ {%- endif %}
 -
 -git_commands = [
 -    'git init -q',
